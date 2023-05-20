@@ -1,8 +1,10 @@
 import 'dart:developer';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../core/constants.dart';
 import '../../widgets/logo.dart';
+import '../home/home_screen.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -221,12 +223,21 @@ class _SignUpState extends State<SignUp> {
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
                         log('validation ssuccess');
+                        FirebaseAuth.instance
+                            .createUserWithEmailAndPassword(
+                                email: emailController.text,
+                                password: confirmpasswordController.text)
+                            .then((value) {
+                          log('sign up ssuccess');
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const HomePage(),
+                              ));
+                        }).onError((error, stackTrace) {
+                          log('Error ${error.toString()}');
+                        });
                       }
-                      // Navigator.pushReplacement(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //       builder: (context) => const HomePage(),
-                      //     ));
                     },
                     child: Text(
                       'Create',

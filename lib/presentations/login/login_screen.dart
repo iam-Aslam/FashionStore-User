@@ -1,9 +1,12 @@
 import 'dart:developer';
 import 'package:fashionstore/core/constants.dart';
+import 'package:fashionstore/presentations/login/reset_password/reset_screen.dart';
 import 'package:fashionstore/presentations/signup/signup.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../widgets/logo.dart';
+import '../home/home_screen.dart';
 
 class LogIn extends StatefulWidget {
   const LogIn({super.key});
@@ -103,6 +106,9 @@ class _LogInState extends State<LogIn> {
                   height: 25,
                   child: TextFormField(
                     controller: passwordController,
+                    obscureText: true,
+                    enableSuggestions: false,
+                    autocorrect: false,
                     validator: (value) {
                       if (value!.isEmpty || value.length < 6) {
                         return "Enter Valid Password";
@@ -122,6 +128,11 @@ class _LogInState extends State<LogIn> {
                     InkWell(
                       onTap: () {
                         log('Forgot Password');
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ResetScreen(),
+                            ));
                       },
                       child: Text(
                         'Forgot Password?',
@@ -148,7 +159,21 @@ class _LogInState extends State<LogIn> {
                     ),
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
-                        log('validation ssuccess');
+                        log('validation success');
+                        FirebaseAuth.instance
+                            .signInWithEmailAndPassword(
+                                email: emailController.text,
+                                password: passwordController.text)
+                            .then((value) {
+                          log('Login success');
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const HomePage(),
+                              )).onError((error, stackTrace) {
+                            log('Error: ${error.toString()}');
+                          });
+                        });
                       }
                     },
                     child: Text(
