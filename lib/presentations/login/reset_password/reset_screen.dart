@@ -20,6 +20,9 @@ class _ResetScreenState extends State<ResetScreen> {
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    var height = size.height;
+    var width = size.width;
     return SafeArea(
         child: Scaffold(
       body: Padding(
@@ -69,7 +72,7 @@ class _ResetScreenState extends State<ResetScreen> {
                 ),
                 khieght20,
                 SizedBox(
-                  height: 25,
+                  height: height / 16,
                   child: TextFormField(
                     controller: emailController,
                     validator: (value) {
@@ -90,8 +93,8 @@ class _ResetScreenState extends State<ResetScreen> {
                 khieght30,
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 140.0, vertical: 15.0),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: width / 3, vertical: 15.0),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0)),
                       backgroundColor: Colors.black,

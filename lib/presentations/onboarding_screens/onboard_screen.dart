@@ -23,7 +23,6 @@ class _OnboardScreenState extends State<OnboardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // final Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
         body: Padding(
@@ -71,7 +70,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
                       },
                       icon: const Icon(
                         Icons.arrow_circle_right_sharp,
-                        size: 70,
+                        size: 50,
                       ),
                     )
                   ],

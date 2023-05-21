@@ -21,6 +21,9 @@ TextEditingController confirmpasswordController = TextEditingController();
 class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    var height = size.height;
+    var width = size.width;
     final formKey = GlobalKey<FormState>();
     //bool isChecked = false;
     return SafeArea(
@@ -70,9 +73,8 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
                 ),
-                khieght20,
                 SizedBox(
-                  height: 25,
+                  height: height / 16,
                   child: TextFormField(
                     controller: nameController,
                     validator: (value) {
@@ -106,9 +108,8 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
                 ),
-                khieght20,
                 SizedBox(
-                  height: 25,
+                  height: height / 16,
                   child: TextFormField(
                     controller: emailController,
                     validator: (value) {
@@ -145,9 +146,8 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
                 ),
-                khieght20,
                 SizedBox(
-                  height: 25,
+                  height: height / 16,
                   child: TextFormField(
                     controller: passwordController,
                     validator: (value) {
@@ -184,9 +184,8 @@ class _SignUpState extends State<SignUp> {
                     ),
                   ),
                 ),
-                khieght20,
                 SizedBox(
-                  height: 25,
+                  height: height / 16,
                   child: TextFormField(
                     controller: confirmpasswordController,
                     validator: (value) {
@@ -213,8 +212,8 @@ class _SignUpState extends State<SignUp> {
                 khieght20,
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 144.0, vertical: 15.0),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: width / 2.9, vertical: 15.0),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0)),
                       backgroundColor: Colors.black,
