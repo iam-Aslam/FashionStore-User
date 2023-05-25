@@ -5,19 +5,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../widgets/logo.dart';
+import '../../../widgets/snackbar.dart';
 
-class ResetScreen extends StatefulWidget {
-  const ResetScreen({super.key});
+class ResetScreen extends StatelessWidget {
+  ResetScreen({super.key});
 
-  @override
-  State<ResetScreen> createState() => _ResetScreenState();
-}
-
-TextEditingController emailController = TextEditingController();
-TextEditingController passwordController = TextEditingController();
-
-class _ResetScreenState extends State<ResetScreen> {
   final formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -106,12 +100,15 @@ class _ResetScreenState extends State<ResetScreen> {
                         await FirebaseAuth.instance
                             .sendPasswordResetEmail(email: emailController.text)
                             .then((value) {
-                          log('Rest Success');
+                          log('Reset Success');
+                          alertSnackbar(context, 'Check Your Email');
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => const LogIn(),
                               )).onError((error, stackTrace) {
+                            alertSnackbar(
+                                context, 'Error: ${error.toString()}');
                             log('Error: ${error.toString()}');
                           });
                         });
@@ -136,3 +133,6 @@ class _ResetScreenState extends State<ResetScreen> {
     ));
   }
 }
+
+TextEditingController emailController = TextEditingController();
+TextEditingController passwordController = TextEditingController();
