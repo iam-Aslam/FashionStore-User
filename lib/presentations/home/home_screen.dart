@@ -12,20 +12,27 @@ class HomePage extends StatelessWidget {
     return SafeArea(
         child: Scaffold(
       body: Center(
-        child: IconButton(
-            onPressed: () {
-              FirebaseAuth.instance.signOut().then((value) {
-                log('LogOut success');
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const LogIn(),
-                    ));
-              }).onError((error, stackTrace) {
-                log('Error: ${error.toString()}');
-              });
-            },
-            icon: const Icon(Icons.logout_outlined)),
+        child: Column(
+          children: [
+            const Spacer(),
+            const Text('Home Page'),
+            IconButton(
+                onPressed: () {
+                  FirebaseAuth.instance.signOut().then((value) {
+                    log('LogOut success');
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LogIn(),
+                        ));
+                  }).onError((error, stackTrace) {
+                    log('Error: ${error.toString()}');
+                  });
+                },
+                icon: const Icon(Icons.logout_outlined)),
+            const Spacer(),
+          ],
+        ),
       ),
     ));
   }

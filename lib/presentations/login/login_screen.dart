@@ -19,6 +19,7 @@ class LogIn extends StatefulWidget {
 
 TextEditingController emailController = TextEditingController();
 TextEditingController passwordController = TextEditingController();
+bool passenable = true;
 
 class _LogInState extends State<LogIn> {
   final formKey = GlobalKey<FormState>();
