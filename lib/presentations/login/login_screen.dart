@@ -68,64 +68,76 @@ class _LogInState extends State<LogIn> {
                         ),
                       ),
                       khieght20,
-                      Text(
-                        'Email',
-                        style: GoogleFonts.poppins(
-                          textStyle: const TextStyle(
-                            letterSpacing: .5,
-                            fontSize: 20,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: height / 16,
-                        child: TextFormField(
-                          controller: emailController,
-                          validator: (value) {
-                            if (value!.isEmpty ||
-                                !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                    .hasMatch(value)) {
-                              return "Enter Valid Email";
-                            } else {
-                              return null;
-                            }
-                          },
-                          keyboardType: TextInputType.emailAddress,
-                          decoration: const InputDecoration(
-                            hintText: 'Enter email here',
+
+                      TextFormField(
+                        controller: emailController,
+                        validator: (value) {
+                          if (value!.isEmpty ||
+                              !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                  .hasMatch(value)) {
+                            return "Enter Valid Email";
+                          } else {
+                            return null;
+                          }
+                        },
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: InputDecoration(
+                          labelText: 'Enter Email',
+                          labelStyle: GoogleFonts.poppins(
+                            textStyle: const TextStyle(
+                              letterSpacing: .5,
+                              fontSize: 18,
+                              color: Colors.black,
+                            ),
                           ),
                         ),
                       ),
                       khieght10,
-                      Text(
-                        'Password',
-                        style: GoogleFonts.poppins(
-                          textStyle: const TextStyle(
-                            letterSpacing: .5,
-                            fontSize: 20,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w600,
+                      // Text(
+                      //   'Password',
+                      //   style: GoogleFonts.poppins(
+                      //     textStyle: const TextStyle(
+                      //       letterSpacing: .5,
+                      //       fontSize: 20,
+                      //       color: Colors.black,
+                      //       fontWeight: FontWeight.w600,
+                      //     ),
+                      //   ),
+                      // ),
+                      TextFormField(
+                        controller: passwordController,
+                        obscureText: passenable,
+                        enableSuggestions: false,
+                        autocorrect: false,
+                        validator: (value) {
+                          if (value!.isEmpty || value.length < 6) {
+                            return "Enter Valid Password";
+                          } else {
+                            return null;
+                          }
+                        },
+                        decoration: InputDecoration(
+                          labelText: 'Password',
+                          labelStyle: GoogleFonts.poppins(
+                            textStyle: const TextStyle(
+                              letterSpacing: .5,
+                              fontSize: 18,
+                              color: Colors.black,
+                            ),
                           ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: height / 15,
-                        child: TextFormField(
-                          controller: passwordController,
-                          obscureText: true,
-                          enableSuggestions: false,
-                          autocorrect: false,
-                          validator: (value) {
-                            if (value!.isEmpty || value.length < 6) {
-                              return "Enter Valid Password";
-                            } else {
-                              return null;
-                            }
-                          },
-                          decoration: const InputDecoration(
-                            hintText: 'Password',
+                          suffix: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                if (passenable) {
+                                  passenable = false;
+                                } else {
+                                  passenable = true;
+                                }
+                              });
+                            },
+                            icon: Icon(passenable == true
+                                ? Icons.remove_red_eye
+                                : Icons.lock_outline),
                           ),
                         ),
                       ),
@@ -255,7 +267,7 @@ class _LogInState extends State<LogIn> {
                           ),
                         ),
                       ),
-                      khieght10,
+                      khieght20,
                       Center(
                         child: InkWell(
                           onTap: () {
@@ -269,10 +281,10 @@ class _LogInState extends State<LogIn> {
                           child: Text(
                             'Create an Account',
                             style: GoogleFonts.poppins(
-                              textStyle: const TextStyle(
+                              textStyle: TextStyle(
                                 letterSpacing: .5,
                                 fontSize: 14,
-                                color: Colors.blueAccent,
+                                color: Colors.blue[900],
                               ),
                             ),
                           ),

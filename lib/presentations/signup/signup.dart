@@ -22,6 +22,7 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    // ignore: unused_local_variable
     var height = size.height;
     var width = size.width;
     final formKey = GlobalKey<FormState>();
@@ -62,151 +63,96 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
                 khieght40,
-                Text(
-                  'User Name',
-                  style: GoogleFonts.poppins(
-                    textStyle: const TextStyle(
-                      letterSpacing: .5,
-                      fontSize: 20,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: height / 16,
-                  child: TextFormField(
-                    controller: nameController,
-                    validator: (value) {
-                      if (value!.isEmpty || value.length < 4) {
-                        return "Enter Valid Name";
-                      } else {
-                        return null;
-                      }
-                    },
-                    decoration: InputDecoration(
-                      hintText: 'Name',
-                      hintStyle: GoogleFonts.poppins(
-                        textStyle: const TextStyle(
-                          letterSpacing: .5,
-                          fontSize: 12,
-                          color: Colors.black54,
-                        ),
+                TextFormField(
+                  controller: nameController,
+                  validator: (value) {
+                    if (value!.isEmpty || value.length < 4) {
+                      return "Enter Valid Name";
+                    } else {
+                      return null;
+                    }
+                  },
+                  decoration: InputDecoration(
+                    labelText: 'Name',
+                    labelStyle: GoogleFonts.poppins(
+                      textStyle: const TextStyle(
+                        letterSpacing: .5,
+                        fontSize: 18,
+                        color: Colors.black,
                       ),
                     ),
                   ),
                 ),
                 khieght10,
-                Text(
-                  'Email',
-                  style: GoogleFonts.poppins(
-                    textStyle: const TextStyle(
-                      letterSpacing: .5,
-                      fontSize: 20,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: height / 16,
-                  child: TextFormField(
-                    controller: emailController,
-                    validator: (value) {
-                      if (value!.isEmpty ||
-                          !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                              .hasMatch(value)) {
-                        return "Enter Valid Email";
-                      } else {
-                        return null;
-                      }
-                    },
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                      hintText: 'Enter email here',
-                      hintStyle: GoogleFonts.poppins(
-                        textStyle: const TextStyle(
-                          letterSpacing: .5,
-                          fontSize: 12,
-                          color: Colors.black54,
-                        ),
+                TextFormField(
+                  controller: emailController,
+                  validator: (value) {
+                    if (value!.isEmpty ||
+                        !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                            .hasMatch(value)) {
+                      return "Enter Valid Email";
+                    } else {
+                      return null;
+                    }
+                  },
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    labelText: 'Enter Email',
+                    labelStyle: GoogleFonts.poppins(
+                      textStyle: const TextStyle(
+                        letterSpacing: .5,
+                        fontSize: 18,
+                        color: Colors.black,
                       ),
                     ),
                   ),
                 ),
                 khieght10,
-                Text(
-                  'Password',
-                  style: GoogleFonts.poppins(
-                    textStyle: const TextStyle(
-                      letterSpacing: .5,
-                      fontSize: 20,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: height / 16,
-                  child: TextFormField(
-                    controller: passwordController,
-                    validator: (value) {
-                      if (value!.length < 6) {
-                        return "Enter Valid Password";
-                      } else {
-                        return null;
-                      }
-                    },
-                    obscureText: true,
-                    enableSuggestions: false,
-                    autocorrect: false,
-                    decoration: InputDecoration(
-                      hintText: 'Password',
-                      hintStyle: GoogleFonts.poppins(
-                        textStyle: const TextStyle(
-                          letterSpacing: .5,
-                          fontSize: 12,
-                          color: Colors.black54,
-                        ),
+                TextFormField(
+                  controller: passwordController,
+                  validator: (value) {
+                    if (value!.length < 6) {
+                      return "Enter Valid Password";
+                    } else {
+                      return null;
+                    }
+                  },
+                  obscureText: true,
+                  enableSuggestions: false,
+                  autocorrect: false,
+                  decoration: InputDecoration(
+                    labelText: 'Password',
+                    labelStyle: GoogleFonts.poppins(
+                      textStyle: const TextStyle(
+                        letterSpacing: .5,
+                        fontSize: 18,
+                        color: Colors.black,
                       ),
                     ),
                   ),
                 ),
                 khieght10,
-                Text(
-                  'Confirm Password',
-                  style: GoogleFonts.poppins(
-                    textStyle: const TextStyle(
-                      letterSpacing: .5,
-                      fontSize: 20,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600,
+                TextFormField(
+                  controller: confirmpasswordController,
+                  validator: (value) {
+                    if (value != passwordController.text) {
+                      return "Password is Incorrect";
+                    } else {
+                      return null;
+                    }
+                  },
+                  obscureText: true,
+                  enableSuggestions: false,
+                  autocorrect: false,
+                  decoration: InputDecoration(
+                    labelText: 'Confirm Password',
+                    labelStyle: GoogleFonts.poppins(
+                      textStyle: const TextStyle(
+                        letterSpacing: .5,
+                        fontSize: 18,
+                        color: Colors.black,
+                      ),
                     ),
-                  ),
-                ),
-                SizedBox(
-                  height: height / 16,
-                  child: TextFormField(
-                    controller: confirmpasswordController,
-                    validator: (value) {
-                      if (value != passwordController.text) {
-                        return "Password is Incorrect";
-                      } else {
-                        return null;
-                      }
-                    },
-                    obscureText: true,
-                    enableSuggestions: false,
-                    autocorrect: false,
-                    decoration: InputDecoration(
-                        hintText: 'Confirm Password',
-                        hintStyle: GoogleFonts.poppins(
-                          textStyle: const TextStyle(
-                            letterSpacing: .5,
-                            fontSize: 12,
-                            color: Colors.black54,
-                          ),
-                        )),
                   ),
                 ),
                 khieght20,
