@@ -12,3 +12,4 @@ const khieght200 = SizedBox(height: 200);
 const khieght150 = SizedBox(height: 150);
 //constant width
 const kwidth10 = SizedBox(width: 10);
+const kwidth20 = SizedBox(width: 20);

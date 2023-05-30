@@ -1,39 +1,95 @@
-import 'dart:developer';
-
-import 'package:fashionstore/presentations/login/login_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fashionstore/presentations/account/account_screen.dart';
+import 'package:fashionstore/presentations/cart/cart_screen.dart';
+import 'package:fashionstore/presentations/home/widget/home_widget.dart';
+import 'package:fashionstore/presentations/wishlist/wishlist_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int currentselected = 0;
+  final pages = const [
+    WidgetHome(),
+    ScreenCart(),
+    ScreenWishlist(),
+    ScreenAccount()
+  ];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      body: Center(
-        child: Column(
-          children: [
-            const Spacer(),
-            const Text('Home Page'),
-            IconButton(
-                onPressed: () {
-                  FirebaseAuth.instance.signOut().then((value) {
-                    log('LogOut success');
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const LogIn(),
-                        ));
-                  }).onError((error, stackTrace) {
-                    log('Error: ${error.toString()}');
+      bottomNavigationBar: Material(
+        elevation: 50,
+        child: Container(
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+                topRight: Radius.circular(30), topLeft: Radius.circular(30)),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20),
+            child: GNav(
+                gap: 8,
+                backgroundColor: Colors.white,
+                color: Colors.white,
+                activeColor: Colors.white,
+                tabBackgroundColor: Colors.black,
+                padding: const EdgeInsets.all(8),
+                onTabChange: (index) {
+                  setState(() {
+                    currentselected = index;
                   });
                 },
-                icon: const Icon(Icons.logout_outlined)),
-            const Spacer(),
-          ],
+                tabs: [
+                  GButton(
+                    icon: CupertinoIcons.house_fill,
+                    iconColor: Colors.black,
+                    text: 'Home',
+                    textStyle: GoogleFonts.inconsolata(
+                      textStyle: const TextStyle(
+                          letterSpacing: .5, fontSize: 15, color: Colors.white),
+                    ),
+                  ),
+                  GButton(
+                    icon: CupertinoIcons.cart_fill,
+                    iconColor: Colors.black,
+                    text: 'Cart',
+                    textStyle: GoogleFonts.inconsolata(
+                      textStyle: const TextStyle(
+                          letterSpacing: .5, fontSize: 15, color: Colors.white),
+                    ),
+                  ),
+                  GButton(
+                    icon: CupertinoIcons.heart_fill,
+                    iconColor: Colors.black,
+                    text: 'Wishlist',
+                    textStyle: GoogleFonts.inconsolata(
+                      textStyle: const TextStyle(
+                          letterSpacing: .5, fontSize: 15, color: Colors.white),
+                    ),
+                  ),
+                  GButton(
+                    icon: CupertinoIcons.person_solid,
+                    iconColor: Colors.black,
+                    text: 'Account',
+                    textStyle: GoogleFonts.inconsolata(
+                      textStyle: const TextStyle(
+                          letterSpacing: .5, fontSize: 15, color: Colors.white),
+                    ),
+                  ),
+                ]),
+          ),
         ),
       ),
+      body: pages[currentselected],
     ));
   }
 }
