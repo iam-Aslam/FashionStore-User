@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'header_widget.dart';
 import 'search_widget.dart';
 
+//home widget
 class WidgetHome extends StatelessWidget {
   const WidgetHome({super.key});
 
