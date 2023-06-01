@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
     WidgetHome(),
     ScreenCart(),
     ScreenWishlist(),
-    ScreenAccount()
+    ScreenAccount(),
   ];
   @override
   Widget build(BuildContext context) {
