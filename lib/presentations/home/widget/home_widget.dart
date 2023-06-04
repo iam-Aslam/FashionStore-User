@@ -1,6 +1,8 @@
 import 'package:fashionstore/core/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'category_button_widget.dart';
+import 'exclusive_widget.dart';
 import 'header_widget.dart';
 import 'search_widget.dart';
 
@@ -12,8 +14,7 @@ class WidgetHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-            body: SingleChildScrollView(
-                child: Padding(
+            body: Padding(
       padding: const EdgeInsets.only(left: 15, right: 15, top: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,44 +44,50 @@ class WidgetHome extends StatelessWidget {
           khieght20,
           const SearchWidget(),
           khieght30,
-          Material(
-            elevation: 12,
-            borderRadius: const BorderRadius.all(Radius.circular(20)),
-            child: Container(
-              height: 80,
-              width: 360,
-              decoration: const BoxDecoration(
-                //color: Colors.amber,
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-              ),
-              child: Row(
-                children: [
-                  kwidth10,
-                  Container(
-                    width: 70,
-                    height: 60,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        image: const DecorationImage(
-                          image: AssetImage('assets/images/splash.jpg'),
-                          fit: BoxFit.cover,
-                        )),
-                  ),
-                  kwidth10,
-                  const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Axel Arigato'),
-                      Text('Clean 90 Triple Sneakers'),
-                      Text("₹245.00}"),
-                    ],
-                  )
-                ],
-              ),
+          const ExclusiveProductWidget(),
+          khieght20,
+          sideHeading(text: 'Categories'),
+          khieght10,
+          const Row(
+            children: [
+              CategoryButton(name: 'Dresses', active: true),
+              CategoryButton(name: 'Jackets', active: false),
+              CategoryButton(name: 'Jeans', active: false),
+              CategoryButton(name: 'Shoese', active: false),
+            ],
+          ),
+          sideHeading(text: 'Top Dresses'),
+          khieght10,
+          Expanded(
+            child: GridView.builder(
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: 10,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 4.0,
+                  mainAxisSpacing: 4.0),
+              itemBuilder: (context, index) {
+                return Container(
+                  color: Colors.yellow,
+                );
+              },
             ),
           )
         ],
       ),
-    ))));
+    )));
+  }
+
+  Text sideHeading({required String text}) {
+    return Text(
+      text,
+      style: GoogleFonts.roboto(
+        textStyle: const TextStyle(
+            letterSpacing: .5,
+            fontSize: 20,
+            color: Colors.black,
+            fontWeight: FontWeight.w900),
+      ),
+    );
   }
 }
