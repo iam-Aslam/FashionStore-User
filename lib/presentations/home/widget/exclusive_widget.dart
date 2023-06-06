@@ -30,7 +30,7 @@ class ExclusiveProductWidget extends StatelessWidget {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   image: const DecorationImage(
-                    image: AssetImage('assets/images/splash.jpg'),
+                    image: AssetImage('assets/images/detail.jpg'),
                     fit: BoxFit.cover,
                   )),
             ),
@@ -49,6 +49,7 @@ class ExclusiveProductWidget extends StatelessWidget {
                         fontWeight: FontWeight.w700),
                   ),
                 ),
+                khieght5,
                 Text(
                   'Clean 90 Triple Sneakers',
                   style: GoogleFonts.roboto(
@@ -59,6 +60,7 @@ class ExclusiveProductWidget extends StatelessWidget {
                         fontWeight: FontWeight.w700),
                   ),
                 ),
+                khieght5,
                 Text(
                   "₹245.00",
                   style: GoogleFonts.roboto(

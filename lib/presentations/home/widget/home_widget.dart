@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'category_button_widget.dart';
+import 'product_tile_widget.dart';
 import 'exclusive_widget.dart';
 import 'header_widget.dart';
 import 'search_widget.dart';
@@ -13,6 +14,11 @@ class WidgetHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+
+    /*24 is for notification bar on Android*/
+    final double itemHeight = (size.height - kToolbarHeight - 24) / 2.5;
+    final double itemWidth = size.width / 2;
     return SafeArea(
         child: Scaffold(
             body: Padding(
@@ -70,36 +76,14 @@ class WidgetHome extends StatelessWidget {
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: 10,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
+                  childAspectRatio: (itemWidth / itemHeight),
                   crossAxisSpacing: 16.0,
                   mainAxisSpacing: 16.0),
               itemBuilder: (context, index) {
-                return Container(
-                  //color: Colors.yellow,
-                  width: 80,
-                  height: 60,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(25),
-                      image: const DecorationImage(
-                        image: AssetImage('assets/images/nike.jpeg'),
-                        fit: BoxFit.cover,
-                      )),
-                  child: Stack(
-                    children: [
-                      Positioned(
-                          left: 125,
-                          top: 0,
-                          child: IconButton(
-                            icon: const Icon(
-                              CupertinoIcons.heart_circle,
-                              color: Colors.white,
-                              size: 24,
-                            ),
-                            onPressed: () {},
-                          ))
-                    ],
-                  ),
+                return ProductTile(
+                  index: index,
                 );
               },
             )
