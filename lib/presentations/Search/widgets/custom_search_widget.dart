@@ -3,10 +3,8 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../Search/search_screen.dart';
-
-class SearchWidget extends StatelessWidget {
-  const SearchWidget({
+class CustomSearchWidget extends StatelessWidget {
+  const CustomSearchWidget({
     super.key,
   });
 
@@ -24,17 +22,12 @@ class SearchWidget extends StatelessWidget {
         color: Colors.grey,
       ),
       style: const TextStyle(color: Colors.black),
-      // onChanged: (value) {
+      onChanged: (value) {
+        log('Search Field');
+      },
+      // onTap: () {
       //   log('Search Field');
       // },
-      onTap: () {
-        log('Search Field');
-        Navigator.push(context, MaterialPageRoute(
-          builder: (context) {
-            return const SearchScreen();
-          },
-        ));
-      },
     );
   }
 }

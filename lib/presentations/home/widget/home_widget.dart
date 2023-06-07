@@ -1,5 +1,4 @@
 import 'package:fashionstore/core/constants.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'category_button_widget.dart';
@@ -11,6 +10,8 @@ import 'search_widget.dart';
 //home widget
 class WidgetHome extends StatelessWidget {
   const WidgetHome({super.key});
+  // final Stream<QuerySnapshot> _productsStream =
+  //     FirebaseFirestore.instance.collection('products').snapshots();
 
   @override
   Widget build(BuildContext context) {

@@ -16,11 +16,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int currentselected = 0;
-  final pages = const [
+  final pages = [
     WidgetHome(),
-    ScreenCart(),
-    ScreenWishlist(),
-    ScreenAccount(),
+    const ScreenCart(),
+    const ScreenWishlist(),
+    const ScreenAccount(),
   ];
   @override
   Widget build(BuildContext context) {
