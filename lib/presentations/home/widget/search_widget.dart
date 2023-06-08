@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
@@ -24,9 +26,6 @@ class SearchWidget extends StatelessWidget {
         color: Colors.grey,
       ),
       style: const TextStyle(color: Colors.black),
-      // onChanged: (value) {
-      //   log('Search Field');
-      // },
       onTap: () {
         log('Search Field');
         Navigator.push(context, MaterialPageRoute(

@@ -52,7 +52,7 @@ class WidgetHome extends StatelessWidget {
               ),
             ),
             khieght20,
-            const SearchWidget(),
+            SearchWidget(),
             khieght30,
             const ExclusiveProductWidget(),
             khieght20,
