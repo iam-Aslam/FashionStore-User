@@ -1,30 +1,42 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-// ignore_for_file: must_be_immutable
-
-import 'dart:developer';
-
-import 'package:fashionstore/presentations/detail/detail_product_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:fashionstore/core/constants.dart';
+import 'package:fashionstore/presentations/detail/detail_product_screen.dart';
 
 class ProductTile extends StatelessWidget {
-  final int index;
+  // final int index;
+  final String id;
+  final String name;
+  final String subname;
+  final int rate;
+  final List<dynamic> image;
   const ProductTile({
     Key? key,
-    required this.index,
+    //required this.index,
+    required this.id,
+    required this.name,
+    required this.subname,
+    required this.rate,
+    required this.image,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        log('Hello I a product ${index.toString} tile on tap...');
+        // log('Hello I a product ${index.toString} tile on tap...');
         Navigator.push(context, MaterialPageRoute(
           builder: (context) {
-            return const ProductDetailScreen();
+            return ProductDetailScreen(
+              id: id,
+              name: name,
+              subname: subname,
+              rate: rate,
+              image: image,
+            );
           },
         ));
       },
@@ -35,8 +47,8 @@ class ProductTile extends StatelessWidget {
             height: 180,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(25),
-                image: const DecorationImage(
-                  image: AssetImage('assets/images/nike.jpeg'),
+                image: DecorationImage(
+                  image: NetworkImage(image[0]),
                   fit: BoxFit.cover,
                 )),
             child: Stack(
@@ -57,7 +69,9 @@ class ProductTile extends StatelessWidget {
           ),
           khieght10,
           Text(
-            'Roller Rabbit',
+            name,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
             style: GoogleFonts.roboto(
               textStyle: const TextStyle(
                   letterSpacing: .5,
@@ -68,7 +82,7 @@ class ProductTile extends StatelessWidget {
           ),
           khieght5,
           Text(
-            'Vado Odello Dress',
+            subname,
             style: GoogleFonts.roboto(
               textStyle: const TextStyle(
                   letterSpacing: .5,
@@ -79,7 +93,7 @@ class ProductTile extends StatelessWidget {
           ),
           khieght5,
           Text(
-            "₹198.00",
+            "₹$rate.00",
             style: GoogleFonts.roboto(
               textStyle: const TextStyle(
                   letterSpacing: .5,

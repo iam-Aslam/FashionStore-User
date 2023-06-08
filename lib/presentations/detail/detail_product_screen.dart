@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -5,8 +6,19 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../core/constants.dart';
 
 class ProductDetailScreen extends StatefulWidget {
-  const ProductDetailScreen({super.key});
-
+  const ProductDetailScreen({
+    Key? key,
+    required this.id,
+    required this.name,
+    required this.subname,
+    required this.rate,
+    required this.image,
+  }) : super(key: key);
+  final String id;
+  final String name;
+  final String subname;
+  final int rate;
+  final List<dynamic> image;
   @override
   State<ProductDetailScreen> createState() => _ProductDetailScreenState();
 }
@@ -28,8 +40,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           height: height / 1.9,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(0),
-              image: const DecorationImage(
-                image: AssetImage('assets/images/detail.jpg'),
+              image: DecorationImage(
+                image: NetworkImage(widget.image[0]),
                 fit: BoxFit.cover,
               )),
           child: Column(
@@ -103,9 +115,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Roller Rabbit',
+                            widget.name,
                             style: GoogleFonts.roboto(
                               textStyle: const TextStyle(
                                   letterSpacing: .5,
@@ -116,7 +129,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           ),
                           khieght10,
                           Text(
-                            'Vado Odello Dress',
+                            widget.subname,
                             style: GoogleFonts.roboto(
                               textStyle: const TextStyle(
                                 letterSpacing: .5,
@@ -191,34 +204,33 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       ],
     )));
   }
-}
 
-Widget customRadioButton(String text, int index) {
-  return StatefulBuilder(
-    builder: (context, setState) {
-      return OutlinedButton(
-        onPressed: () {
-          setState(() {
-            value = index;
-          });
-          setState(() {});
-        },
-        style: OutlinedButton.styleFrom(
-          shape: const CircleBorder(
-            side: BorderSide.none,
+  Widget customRadioButton(String text, int index) {
+    return Builder(
+      builder: (context) {
+        return OutlinedButton(
+          onPressed: () {
+            setState(() {
+              value = index;
+            });
+          },
+          style: OutlinedButton.styleFrom(
+            shape: const CircleBorder(
+              side: BorderSide.none,
+            ),
+            side: BorderSide(
+              color: (value == index) ? Colors.black : Colors.black87,
+            ),
+            backgroundColor: (value == index) ? Colors.black : Colors.white,
           ),
-          side: BorderSide(
-            color: (value == index) ? Colors.black : Colors.black87,
+          child: Text(
+            text,
+            style: TextStyle(
+              color: (value == index) ? Colors.white : Colors.black87,
+            ),
           ),
-          backgroundColor: (value == index) ? Colors.black : Colors.white,
-        ),
-        child: Text(
-          text,
-          style: TextStyle(
-            color: (value == index) ? Colors.white : Colors.black87,
-          ),
-        ),
-      );
-    },
-  );
+        );
+      },
+    );
+  }
 }

@@ -1,11 +1,21 @@
+import 'dart:developer';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fashionstore/core/constants.dart';
+import 'package:fashionstore/presentations/home/widget/product_tile_widget.dart';
 import 'package:flutter/material.dart';
-import '../home/widget/product_tile_widget.dart';
 import 'widgets/custom_search_widget.dart';
 
-class SearchScreen extends StatelessWidget {
+List<dynamic> availableProducts = [];
+List<dynamic> filteredProducts = [];
+
+class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
 
+  @override
+  State<SearchScreen> createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -19,20 +29,43 @@ class SearchScreen extends StatelessWidget {
         child: Column(
           children: [
             khieght10,
-            const CustomSearchWidget(),
+            CustomSearchWidget(
+              onChanged: filterUsers,
+            ),
             khieght10,
             Expanded(
-              child: GridView.builder(
-                shrinkWrap: true,
-                itemCount: 10,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: (itemWidth / itemHeight),
-                    crossAxisSpacing: 16.0,
-                    mainAxisSpacing: 16.0),
-                itemBuilder: (context, index) {
-                  return ProductTile(
-                    index: index,
+              child: StreamBuilder(
+                stream: FirebaseFirestore.instance
+                    .collection('products')
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return const CircularProgressIndicator();
+                  } else if (snapshot.hasData) {
+                    log('Data Received');
+                    availableProducts = snapshot.data!.docs;
+                    return GridView.builder(
+                      shrinkWrap: true,
+                      itemCount: filteredProducts.length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: (itemWidth / itemHeight),
+                          crossAxisSpacing: 16.0,
+                          mainAxisSpacing: 16.0),
+                      itemBuilder: (context, index) {
+                        final DocumentSnapshot productSnap =
+                            filteredProducts[index];
+                        return ProductTile(
+                            id: productSnap['id'],
+                            name: productSnap['name'],
+                            subname: productSnap['subname'],
+                            rate: productSnap['price'],
+                            image: productSnap['image']);
+                      },
+                    );
+                  }
+                  return const Center(
+                    child: Text('No Data Available'),
                   );
                 },
               ),
@@ -41,5 +74,15 @@ class SearchScreen extends StatelessWidget {
         ),
       ),
     ));
+  }
+
+  void filterUsers(String query) {
+    setState(() {
+      filteredProducts = availableProducts.where((doc) {
+        String name = doc.data()['name'].toLowerCase();
+        String searchLower = query.toLowerCase();
+        return name.contains(searchLower);
+      }).toList();
+    });
   }
 }

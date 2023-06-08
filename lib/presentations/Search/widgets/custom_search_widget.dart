@@ -1,12 +1,12 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CustomSearchWidget extends StatelessWidget {
+  final void Function(String query) onChanged;
   const CustomSearchWidget({
-    super.key,
-  });
+    Key? key,
+    required this.onChanged,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +22,7 @@ class CustomSearchWidget extends StatelessWidget {
         color: Colors.grey,
       ),
       style: const TextStyle(color: Colors.black),
-      onChanged: (value) {
-        log('Search Field');
-      },
-      // onTap: () {
-      //   log('Search Field');
-      // },
+      onChanged: onChanged,
     );
   }
 }

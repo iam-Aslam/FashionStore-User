@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fashionstore/core/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,9 +10,9 @@ import 'search_widget.dart';
 
 //home widget
 class WidgetHome extends StatelessWidget {
-  const WidgetHome({super.key});
-  // final Stream<QuerySnapshot> _productsStream =
-  //     FirebaseFirestore.instance.collection('products').snapshots();
+  WidgetHome({super.key});
+  final Stream<QuerySnapshot> _productsStream =
+      FirebaseFirestore.instance.collection('products').snapshots();
 
   @override
   Widget build(BuildContext context) {
@@ -59,10 +60,10 @@ class WidgetHome extends StatelessWidget {
             khieght10,
             const Row(
               children: [
-                CategoryButton(name: 'Dresses', active: true),
-                CategoryButton(name: 'Jackets', active: false),
-                CategoryButton(name: 'Jeans', active: false),
-                CategoryButton(name: 'Shoese', active: false),
+                CategoryButton(name: 'Men', active: true),
+                CategoryButton(name: 'Women', active: false),
+                CategoryButton(name: 'Boys', active: false),
+                CategoryButton(name: 'Girls', active: false),
               ],
             ),
             Row(
@@ -73,19 +74,36 @@ class WidgetHome extends StatelessWidget {
               ],
             ),
             khieght5,
-            GridView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: 10,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: (itemWidth / itemHeight),
-                  crossAxisSpacing: 16.0,
-                  mainAxisSpacing: 16.0),
-              itemBuilder: (context, index) {
-                return ProductTile(
-                  index: index,
-                );
+            StreamBuilder<QuerySnapshot>(
+              stream: _productsStream,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  final List<DocumentSnapshot> documents = snapshot.data!.docs;
+                  return GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: documents.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: (itemWidth / itemHeight),
+                        crossAxisSpacing: 16.0,
+                        mainAxisSpacing: 16.0),
+                    itemBuilder: (context, index) {
+                      return ProductTile(
+                        name: documents[index].get('name'),
+                        subname: documents[index].get('subname'),
+                        rate: documents[index].get('price'),
+                        image: documents[index].get('image'),
+                        id: documents[index].get('id'),
+                        //index: index,
+                      );
+                    },
+                  );
+                } else if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else {
+                  return const CircularProgressIndicator();
+                }
               },
             )
           ],
