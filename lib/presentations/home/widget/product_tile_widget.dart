@@ -13,6 +13,8 @@ class ProductTile extends StatelessWidget {
   final String subname;
   final int rate;
   final List<dynamic> image;
+  final String description;
+
   const ProductTile({
     Key? key,
     //required this.index,
@@ -21,6 +23,7 @@ class ProductTile extends StatelessWidget {
     required this.subname,
     required this.rate,
     required this.image,
+    required this.description,
   }) : super(key: key);
 
   @override
@@ -36,6 +39,7 @@ class ProductTile extends StatelessWidget {
               subname: subname,
               rate: rate,
               image: image,
+              description: description,
             );
           },
         ));

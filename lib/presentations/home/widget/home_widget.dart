@@ -95,6 +95,8 @@ class WidgetHome extends StatelessWidget {
                         rate: documents[index].get('price'),
                         image: documents[index].get('image'),
                         id: documents[index].get('id'),
+                        description: documents[index].get('description'),
+
                         //index: index,
                       );
                     },

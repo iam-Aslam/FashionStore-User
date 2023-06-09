@@ -1,6 +1,7 @@
 import 'package:fashionstore/presentations/login/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:fashionstore/presentations/onboarding_screens/widgets/pageindicator_widget.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'onboard_core.dart';
 import 'widgets/onboard_content.dart';
 
@@ -48,12 +49,35 @@ class _OnboardScreenState extends State<OnboardScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 20.0, bottom: 20),
+                padding: const EdgeInsets.only(right: 20.0, bottom: 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    PageIndicator(
-                      currentValue: pageIndex,
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        PageIndicator(
+                          currentValue: pageIndex,
+                        ),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const LogIn(),
+                                  ));
+                            },
+                            child: Text('Skip',
+                                style: GoogleFonts.poppins(
+                                  textStyle: const TextStyle(
+                                    letterSpacing: .5,
+                                    fontSize: 14,
+                                    color: Colors.black54,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                )))
+                      ],
                     ),
                     IconButton(
                       onPressed: () {

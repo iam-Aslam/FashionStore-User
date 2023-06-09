@@ -56,11 +56,13 @@ class _SearchScreenState extends State<SearchScreen> {
                         final DocumentSnapshot productSnap =
                             filteredProducts[index];
                         return ProductTile(
-                            id: productSnap['id'],
-                            name: productSnap['name'],
-                            subname: productSnap['subname'],
-                            rate: productSnap['price'],
-                            image: productSnap['image']);
+                          id: productSnap['id'],
+                          name: productSnap['name'],
+                          subname: productSnap['subname'],
+                          rate: productSnap['price'],
+                          image: productSnap['image'],
+                          description: productSnap['description'],
+                        );
                       },
                     );
                   }
