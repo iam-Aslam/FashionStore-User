@@ -108,7 +108,7 @@ class _OnboardScreenState extends State<OnboardScreen> {
   }
 
   @override
-  void dispose() {
+  void dispose() async {
     _pageController.dispose();
     super.dispose();
   }

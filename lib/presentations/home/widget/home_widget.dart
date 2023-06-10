@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fashionstore/core/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'Shimmer_widget.dart';
 import 'category_button_widget.dart';
 import 'product_tile_widget.dart';
 import 'exclusive_widget.dart';
@@ -52,7 +53,7 @@ class WidgetHome extends StatelessWidget {
               ),
             ),
             khieght20,
-            SearchWidget(),
+            const SearchWidget(),
             khieght30,
             const ExclusiveProductWidget(),
             khieght20,
@@ -103,8 +104,11 @@ class WidgetHome extends StatelessWidget {
                   );
                 } else if (snapshot.hasError) {
                   return Text('Error: ${snapshot.error}');
+                } else if (snapshot.connectionState ==
+                    ConnectionState.waiting) {
+                  return const HomeProductShimmerEffect();
                 } else {
-                  return const CircularProgressIndicator();
+                  return const HomeProductShimmerEffect();
                 }
               },
             )

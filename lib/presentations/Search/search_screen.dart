@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fashionstore/core/constants.dart';
+import 'package:fashionstore/presentations/home/widget/Shimmer_widget.dart';
 import 'package:fashionstore/presentations/home/widget/product_tile_widget.dart';
 import 'package:flutter/material.dart';
 import 'widgets/custom_search_widget.dart';
@@ -65,10 +66,11 @@ class _SearchScreenState extends State<SearchScreen> {
                         );
                       },
                     );
+                  } else if (snapshot.connectionState ==
+                      ConnectionState.waiting) {
+                    return const HomeProductShimmerEffect();
                   }
-                  return const Center(
-                    child: Text('No Data Available'),
-                  );
+                  return const HomeProductShimmerEffect();
                 },
               ),
             )
