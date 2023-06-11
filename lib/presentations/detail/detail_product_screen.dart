@@ -1,9 +1,7 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:fashionstore/presentations/detail/widgets/quantity_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../core/constants.dart';
 
 class ProductDetailScreen extends StatefulWidget {
@@ -165,32 +163,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         ],
                       ),
                       const Spacer(),
-                      QuantityCartWidget(),
-                      // Container(
-                      //   width: width / 3.75,
-                      //   height: height / 24,
-                      //   decoration: BoxDecoration(
-                      //       color: Colors.grey,
-                      //       borderRadius: BorderRadius.circular(15)),
-                      //   child: Row(
-                      //     mainAxisAlignment: MainAxisAlignment.start,
-                      //     children: [
-                      //       IconButton(
-                      //           onPressed: () {},
-                      //           icon: const Icon(
-                      //             Icons.minimize_outlined,
-                      //             size: 15,
-                      //           )),
-                      //       const Text('1'),
-                      //       IconButton(
-                      //           onPressed: () {},
-                      //           icon: const Icon(
-                      //             Icons.add,
-                      //             size: 15,
-                      //           ))
-                      //     ],
-                      //   ),
-                      // )
+                      const QuantityCartWidget(),
                     ],
                   ),
                   khieght20,
@@ -404,6 +377,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     )));
   }
 
+  // ignore: unused_element
   void _selectColor(String color) {
     setState(() {
       _selectedColor = color;

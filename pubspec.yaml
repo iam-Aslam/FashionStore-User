@@ -44,6 +44,7 @@ dependencies:
   cloud_firestore: ^4.7.1
   shimmer_animation: ^2.1.0+1
   shared_preferences: ^2.1.2
+  flutter_slidable: ^3.0.0
 
 dev_dependencies:
   flutter_test:

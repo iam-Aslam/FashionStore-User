@@ -1,12 +1,21 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fashionstore/core/constants.dart';
+import 'package:fashionstore/presentations/products/all_products.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'package:fashionstore/core/constants.dart';
+import 'package:fashionstore/presentations/Categories/Boys/category_boys.dart';
+import 'package:fashionstore/presentations/Categories/Girls/category_women.dart';
+import 'package:fashionstore/presentations/Categories/Men/category_men.dart';
+import 'package:fashionstore/presentations/Categories/Women/category_women.dart';
+
+import '../../../widgets/side_heading_widget.dart';
 import 'Shimmer_widget.dart';
 import 'category_button_widget.dart';
-import 'product_tile_widget.dart';
 import 'exclusive_widget.dart';
 import 'header_widget.dart';
+import 'product_tile_widget.dart';
 import 'search_widget.dart';
 
 //home widget
@@ -57,21 +66,69 @@ class WidgetHome extends StatelessWidget {
             khieght30,
             const ExclusiveProductWidget(),
             khieght20,
-            sideHeading(text: 'Categories'),
+            SideHeading(text: 'Categories'),
             khieght10,
-            const Row(
+            Row(
               children: [
-                CategoryButton(name: 'Men', active: true),
-                CategoryButton(name: 'Women', active: false),
-                CategoryButton(name: 'Boys', active: false),
-                CategoryButton(name: 'Girls', active: false),
+                CategoryButton(
+                  name: 'Men',
+                  active: true,
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return const CategoryMen();
+                      },
+                    ));
+                  },
+                ),
+                CategoryButton(
+                  name: 'Women',
+                  active: true,
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return const CategoryWomen();
+                      },
+                    ));
+                  },
+                ),
+                CategoryButton(
+                  name: 'Boys',
+                  active: true,
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return const CategoryBoys();
+                      },
+                    ));
+                  },
+                ),
+                CategoryButton(
+                  name: 'Girls',
+                  active: true,
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return const CategorGirls();
+                      },
+                    ));
+                  },
+                ),
               ],
             ),
             Row(
               children: [
-                sideHeading(text: 'Top Dresses'),
+                SideHeading(text: 'Top Dresses'),
                 const Spacer(),
-                TextButton(onPressed: () {}, child: const Text('View All'))
+                TextButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) {
+                          return const AllProducts();
+                        },
+                      ));
+                    },
+                    child: const Text('View All'))
               ],
             ),
             khieght5,
@@ -116,18 +173,5 @@ class WidgetHome extends StatelessWidget {
         ),
       ),
     )));
-  }
-
-  Text sideHeading({required String text}) {
-    return Text(
-      text,
-      style: GoogleFonts.roboto(
-        textStyle: const TextStyle(
-            letterSpacing: .5,
-            fontSize: 20,
-            color: Colors.black,
-            fontWeight: FontWeight.w900),
-      ),
-    );
   }
 }

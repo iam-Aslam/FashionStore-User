@@ -1,14 +1,17 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CategoryButton extends StatelessWidget {
   final String name;
   final bool active;
+  final VoidCallback onTap;
   const CategoryButton({
+    Key? key,
     required this.name,
     required this.active,
-    super.key,
-  });
+    required this.onTap,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +26,7 @@ class CategoryButton extends StatelessWidget {
             backgroundColor: active == true ? Colors.black : Colors.white,
             foregroundColor: Colors.white,
           ),
-          onPressed: () {},
+          onPressed: onTap,
           child: Text(
             name,
             style: GoogleFonts.roboto(
