@@ -109,9 +109,10 @@ class ScreenCart extends StatelessWidget {
                       borderRadius: BorderRadius.circular(5),
                       child: Container(
                         color: Colors.white,
-                        child: const SizedBox(
+                        child: SizedBox(
                           width: 30,
                           height: 30,
+                          child: Image.asset('assets/images/next.jpg'),
                         ),
                       ),
                     )
