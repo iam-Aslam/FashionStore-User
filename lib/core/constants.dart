@@ -17,3 +17,7 @@ const kwidth30 = SizedBox(width: 30);
 const kwidth40 = SizedBox(width: 40);
 const kwidth50 = SizedBox(width: 50);
 const kwidth60 = SizedBox(width: 60);
+const kwidth70 = SizedBox(width: 70);
+const kwidth80 = SizedBox(width: 80);
+const kwidth90 = SizedBox(width: 90);
+const kwidth100 = SizedBox(width: 100);

@@ -33,14 +33,15 @@ class CategoryWomen extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: const Icon(
-                        CupertinoIcons.arrow_left_circle_fill,
-                        size: 40,
-                      )),
+                  InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: const CircleAvatar(
+                        //  backgroundColor: Colors.black,
+                        radius: 18,
+                        backgroundImage: AssetImage('assets/images/prev.jpg')),
+                  ),
                   const Spacer(),
                   Padding(
                     padding: const EdgeInsets.only(top: 10.0, left: 10),

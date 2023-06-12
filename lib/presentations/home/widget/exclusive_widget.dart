@@ -30,7 +30,7 @@ class ExclusiveProductWidget extends StatelessWidget {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   image: const DecorationImage(
-                    image: AssetImage('assets/images/detail.jpg'),
+                    image: AssetImage('assets/images/nike.jpg'),
                     fit: BoxFit.cover,
                   )),
             ),
