@@ -1,14 +1,45 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import '../../../core/constants.dart';
 
 class CartWidget extends StatelessWidget {
+  final String id;
+  final String productId;
+  final String color;
+  final String size;
+  final int price;
+  final int totalPrice;
+  final int quantity;
   const CartWidget({
-    super.key,
-  });
+    Key? key,
+    required this.id,
+    required this.productId,
+    required this.color,
+    required this.size,
+    required this.price,
+    required this.totalPrice,
+    required this.quantity,
+  }) : super(key: key);
+
+  getProductData(String productId) async {
+    final CollectionReference productsCollection =
+        FirebaseFirestore.instance.collection('products');
+
+    try {
+      DocumentSnapshot productSnapshot =
+          await productsCollection.doc(productId).get();
+      return productSnapshot;
+    } catch (error) {
+      log('Error retrieving product data: $error');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

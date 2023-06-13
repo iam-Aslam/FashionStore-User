@@ -6,6 +6,7 @@ class Cart {
   final int? quantity;
   final String? color;
   final String? email;
+  final String? size;
   Cart.fromJson(Map<String, Object?> json)
       : this(
           id: json['id']! as String,
@@ -15,6 +16,7 @@ class Cart {
           totalPrice: json['totalprice']! as int,
           price: json['price']! as int,
           email: json['email']! as String,
+          size: json['size']! as String,
         );
   Cart({
     this.id,
@@ -24,5 +26,6 @@ class Cart {
     required this.quantity,
     this.color = "Black",
     required this.email,
+    required this.size,
   });
 }

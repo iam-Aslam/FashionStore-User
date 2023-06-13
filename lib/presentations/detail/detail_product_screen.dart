@@ -1,8 +1,12 @@
-import 'package:fashionstore/presentations/detail/widgets/quantity_widget.dart';
+import 'dart:developer';
+import 'package:fashionstore/model/functions.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../core/constants.dart';
+import '../../model/cart_model.dart';
+import 'widgets/image_widget.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   const ProductDetailScreen({
@@ -26,11 +30,11 @@ class ProductDetailScreen extends StatefulWidget {
 }
 
 int value = 0;
-String? _selectedLanguage;
+String? _selectedsize;
 String? _selectedColor;
-
-final List<String> _languages = ['S', 'M', 'L', 'XL', 'XXL'];
-final List<String> _colours = ['1', '2', '3', '4'];
+final String currentUser = FirebaseAuth.instance.currentUser!.email!;
+final List<String> _sizes = ['S', 'M', 'L', 'XL', 'XXL'];
+final List<String> _colours = ['W', 'B', 'G', 'O'];
 Color getColor(String color) {
   switch (color) {
     case '1':
@@ -41,9 +45,23 @@ Color getColor(String color) {
       return Colors.green;
     case '4':
       return Colors.orange;
-
     default:
       return Colors.grey;
+  }
+}
+
+String getColorName(String color) {
+  switch (color) {
+    case '1':
+      return 'White';
+    case '2':
+      return 'Black';
+    case '3':
+      return 'Green';
+    case '4':
+      return 'Orange';
+    default:
+      return 'Black';
   }
 }
 
@@ -58,68 +76,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             body: SingleChildScrollView(
       child: Column(
         children: [
-          Container(
-            width: width / 1,
-            height: height / 1.9,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(0),
-                image: DecorationImage(
-                  image: NetworkImage(widget.image[0]),
-                  fit: BoxFit.cover,
-                )),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 10.0, top: 10, right: 12),
-                  child: Row(
-                    children: [
-                      IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon: const Icon(
-                            CupertinoIcons.arrow_left_circle_fill,
-                            size: 40,
-                          )),
-                      const Spacer(),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 12.0),
-                        child: CircleAvatar(
-                          radius: 16,
-                          child: IconButton(
-                              onPressed: () {},
-                              icon: const Icon(
-                                CupertinoIcons.bag,
-                                size: 20,
-                              )),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                const Spacer(),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 18.0, right: 18),
-                  child: Row(
-                    children: [
-                      const Spacer(),
-                      CircleAvatar(
-                        radius: 16,
-                        child: IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              CupertinoIcons.heart,
-                              size: 20,
-                            )),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
+          DetailImageWidget(width: width, height: height, widget: widget),
           Material(
             elevation: 50,
             child: Container(
@@ -166,7 +123,35 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           ],
                         ),
                         const Spacer(),
-                        const QuantityCartWidget(),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Price',
+                              style: GoogleFonts.roboto(
+                                textStyle: const TextStyle(
+                                    letterSpacing: .5,
+                                    fontSize: 10,
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 72,
+                              child: Text(
+                                '₹${widget.rate.toString()}.00',
+                                overflow: TextOverflow.ellipsis,
+                                style: GoogleFonts.roboto(
+                                  textStyle: const TextStyle(
+                                      letterSpacing: .5,
+                                      fontSize: 15,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w900),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
                       ],
                     ),
                     khieght20,
@@ -193,7 +178,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               children: [
                                 Wrap(
                                   spacing: 3.0,
-                                  children: _languages
+                                  children: _sizes
                                       .map((language) => ChoiceChip(
                                             label: Text(
                                               language,
@@ -210,11 +195,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                                   color: Colors.grey,
                                                   style: BorderStyle.solid),
                                             ),
-                                            selected:
-                                                _selectedLanguage == language,
+                                            selected: _selectedsize == language,
                                             onSelected: (selected) {
                                               if (selected) {
-                                                _selectLanguage(language);
+                                                _selectSize(language);
                                               }
                                             },
                                           ))
@@ -268,10 +252,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                           decoration: BoxDecoration(
                                             // color: Colors.white,
                                             border: Border.all(
-                                              color: _selectedLanguage == color
+                                              color: _selectedsize == color
                                                   ? Colors.black
                                                   : Colors.transparent,
-                                              width: _selectedLanguage == color
+                                              width: _selectedsize == color
                                                   ? 2.0
                                                   : 0.0,
                                             ),
@@ -295,10 +279,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                                   style: BorderStyle.solid),
                                             ),
                                             selected: _selectedColor == color,
-                                            onSelected: (value) {
-                                              setState(() {
-                                                _selectedColor = color;
-                                              });
+                                            onSelected: (selected) {
+                                              if (selected) {
+                                                _selectColor(color);
+                                              }
                                             },
                                           ),
                                         ))
@@ -312,49 +296,62 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     khieght30,
                     Row(
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Total Price',
-                              style: GoogleFonts.roboto(
-                                textStyle: const TextStyle(
-                                    letterSpacing: .5,
-                                    fontSize: 10,
-                                    color: Colors.grey,
-                                    fontWeight: FontWeight.w700),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 72,
-                              child: Text(
-                                '₹${widget.rate.toString()}.00',
-                                overflow: TextOverflow.ellipsis,
-                                style: GoogleFonts.roboto(
-                                  textStyle: const TextStyle(
-                                      letterSpacing: .5,
-                                      fontSize: 15,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w900),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                        kwidth60,
                         ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               padding: EdgeInsets.symmetric(
-                                  horizontal: width / 8, vertical: 12.0),
+                                  horizontal: width / 12, vertical: 12.0),
                               shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30.0)),
+                                  borderRadius: BorderRadius.circular(10.0)),
                               backgroundColor: Colors.black,
                               foregroundColor: Colors.white,
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              log('Buy Now function');
+                            },
                             child: Row(
                               children: [
                                 const Icon(CupertinoIcons.bag),
+                                kwidth10,
+                                Text(
+                                  'Buy Now',
+                                  style: GoogleFonts.poppins(
+                                    textStyle: const TextStyle(
+                                      letterSpacing: .5,
+                                      fontSize: 14,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )),
+                        const Spacer(),
+                        ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: width / 16, vertical: 12.0),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0)),
+                              backgroundColor: Colors.black,
+                              foregroundColor: Colors.white,
+                            ),
+                            onPressed: () {
+                              addToCart(
+                                  Cart(
+                                    productId: widget.id,
+                                    price: widget.rate,
+                                    totalPrice: widget.rate,
+                                    quantity: 1,
+                                    email: currentUser,
+                                    size: _selectedsize,
+                                    color:
+                                        getColorName(_selectedColor.toString()),
+                                  ),
+                                  context);
+                            },
+                            child: Row(
+                              children: [
+                                const Icon(CupertinoIcons.cart),
                                 kwidth10,
                                 Text(
                                   'Add to cart',
@@ -381,16 +378,16 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     )));
   }
 
-  // ignore: unused_element
   void _selectColor(String color) {
     setState(() {
       _selectedColor = color;
     });
   }
 
-  void _selectLanguage(String language) {
+  void _selectSize(String size) {
     setState(() {
-      _selectedLanguage = language;
+      _selectedsize = size;
+      log(_selectedsize.toString());
     });
   }
 
