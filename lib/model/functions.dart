@@ -44,3 +44,34 @@ Future<void> addToCart(Cart cartModel, BuildContext context) async {
     log("Failed to add product to cart: $error");
   }
 }
+
+//get cart products
+Stream<List<DocumentSnapshot>> getCart(String emailId) async* {
+  final QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+      .collection('cart')
+      .where('email', isEqualTo: emailId)
+      .get();
+  final List<DocumentSnapshot> docs = querySnapshot.docs.toList();
+  yield docs;
+}
+
+//get product data
+Stream<DocumentSnapshot> getProductData(String productId) {
+  final CollectionReference productsCollection =
+      FirebaseFirestore.instance.collection('products');
+
+  return productsCollection.doc(productId).snapshots();
+}
+
+//delete cart product
+Future<void> deleteCart(String id, BuildContext context) {
+  CollectionReference cartProduct =
+      FirebaseFirestore.instance.collection('cart');
+  return cartProduct.doc(id).delete().then((value) {
+    log("Cart Deleted");
+    alertSnackbar(context, "Product was deleted");
+  }).catchError((error) {
+    log("Failed to delete Cart: $error");
+    alertSnackbar(context, "Failed to delete Cart Item");
+  });
+}
