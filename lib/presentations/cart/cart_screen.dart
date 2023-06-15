@@ -11,7 +11,9 @@ import '../home/widget/Shimmer_widget.dart';
 import 'widgets/cart_widget.dart';
 
 class ScreenCart extends StatelessWidget {
-  ScreenCart({super.key});
+  ScreenCart({Key? key}) : super(key: key);
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   int itemCount = 0;
   // String productName = '';
   // String productSubname = '';
@@ -23,6 +25,7 @@ class ScreenCart extends StatelessWidget {
     var width = size.width;
     return SafeArea(
         child: Scaffold(
+      key: _scaffoldKey,
       body: Padding(
         padding: const EdgeInsets.only(left: 12.0, top: 12, right: 10),
         child: Column(
@@ -51,33 +54,37 @@ class ScreenCart extends StatelessWidget {
             ),
             khieght20,
             SizedBox(
-              height: 478,
+              height: height / 1.68,
               child: StreamBuilder<QuerySnapshot>(
                 stream: FirebaseFirestore.instance
                     .collection('cart')
                     .where('email', isEqualTo: email)
                     .snapshots(),
                 builder: (context, snapshot) {
-                  final List<DocumentSnapshot> documents = snapshot.data!.docs;
-                  itemCount = documents.length;
                   if (snapshot.hasData) {
-                    return Expanded(
-                      child: ListView.separated(
-                        separatorBuilder: (context, index) => khieght20,
-                        itemCount: documents.length,
-                        itemBuilder: (context, index) {
-                          return CartWidget(
-                            id: documents[index].get('id'),
-                            productId: documents[index].get('productid'),
-                            price: documents[index].get('price'),
-                            totalPrice: documents[index].get('totalprice'),
-                            color: documents[index].get('color'),
-                            size: documents[index].get('size'),
-                            quantity: documents[index].get('quantity'),
+                    final List<DocumentSnapshot> documents =
+                        snapshot.data!.docs;
+                    itemCount = documents.length;
+                    return documents.isNotEmpty
+                        ? ListView.separated(
+                            separatorBuilder: (context, index) => khieght20,
+                            itemCount: documents.length,
+                            itemBuilder: (context, index) {
+                              return CartWidget(
+                                id: documents[index].get('id'),
+                                productId: documents[index].get('productid'),
+                                price: documents[index].get('price'),
+                                totalPrice: documents[index].get('totalprice'),
+                                color: documents[index].get('color'),
+                                size: documents[index].get('size'),
+                                quantity: documents[index].get('quantity'),
+                                scaffoldContext: _scaffoldKey.currentContext,
+                              );
+                            },
+                          )
+                        : const Center(
+                            child: Text('Cart is Empty'),
                           );
-                        },
-                      ),
-                    );
                   } else if (snapshot.hasError) {
                     Text('Error: ${snapshot.error}');
                     log(snapshot.error.toString());

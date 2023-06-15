@@ -34,7 +34,7 @@ String? _selectedsize;
 String? _selectedColor;
 final String currentUser = FirebaseAuth.instance.currentUser!.email!;
 final List<String> _sizes = ['S', 'M', 'L', 'XL', 'XXL'];
-final List<String> _colours = ['W', 'B', 'G', 'O'];
+final List<String> _colours = ['1', '2', '3', '4'];
 Color getColor(String color) {
   switch (color) {
     case '1':

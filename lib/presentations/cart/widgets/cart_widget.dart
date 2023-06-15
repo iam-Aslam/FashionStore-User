@@ -1,11 +1,11 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fashionstore/core/constants.dart';
-import 'package:fashionstore/model/functions.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:fashionstore/presentations/cart/widgets/count_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:fashionstore/core/constants.dart';
+import 'package:fashionstore/model/functions.dart';
 
 class CartWidget extends StatefulWidget {
   final String id;
@@ -15,6 +15,7 @@ class CartWidget extends StatefulWidget {
   final int price;
   final int totalPrice;
   final int quantity;
+  final BuildContext? scaffoldContext;
 
   const CartWidget({
     Key? key,
@@ -25,6 +26,7 @@ class CartWidget extends StatefulWidget {
     required this.price,
     required this.totalPrice,
     required this.quantity,
+    required this.scaffoldContext,
   }) : super(key: key);
 
   @override
@@ -59,7 +61,7 @@ class _CartWidgetState extends State<CartWidget> {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
+    // var size = MediaQuery.of(context).size;
 
     return Slidable(
       endActionPane: ActionPane(
@@ -71,7 +73,7 @@ class _CartWidgetState extends State<CartWidget> {
                   topRight: Radius.circular(20),
                   bottomRight: Radius.circular(20)),
               onPressed: (context) {
-                // deleteCart(id!, context);
+                //  deleteCart(widget.id, widget.scaffoldContext!);
                 showDialog(
                   context: context,
                   builder: (BuildContext context) {
@@ -103,7 +105,8 @@ class _CartWidgetState extends State<CartWidget> {
                   },
                 ).then((value) {
                   if (value != null && value) {
-                    deleteCart(id!, context);
+                    deleteCart(widget.id, widget.scaffoldContext!);
+                    setState(() {});
                   }
                 });
               },
@@ -184,41 +187,43 @@ class _CartWidgetState extends State<CartWidget> {
                       ),
                       kwidth80,
                       Container(
-                          height: 30,
-                          decoration: BoxDecoration(
-                              color: Colors.grey[300],
-                              borderRadius: BorderRadius.circular(30)),
-                          child: SizedBox(
-                            width: size.width * 0.2,
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                GestureDetector(
-                                  onTap: () async {
-                                    log('Reduce count');
-                                  },
-                                  child: const Icon(
-                                    CupertinoIcons.minus,
-                                    size: 15,
-                                  ),
-                                ),
-                                const Text(
-                                  '1',
-                                  style: TextStyle(fontSize: 20),
-                                ),
-                                GestureDetector(
-                                  onTap: () async {
-                                    log('Add count');
-                                  },
-                                  child: const Icon(
-                                    CupertinoIcons.add,
-                                    size: 15,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ))
+                        height: 30,
+                        decoration: BoxDecoration(
+                            color: Colors.grey[300],
+                            borderRadius: BorderRadius.circular(30)),
+                        child: const CountWidget(),
+                        // child: SizedBox(
+                        //   width: size.width * 0.2,
+                        //   child: Row(
+                        //     mainAxisSize: MainAxisSize.max,
+                        //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        //     children: [
+                        //       GestureDetector(
+                        //         onTap: () async {
+                        //           log('Reduce count');
+                        //         },
+                        //         child: const Icon(
+                        //           CupertinoIcons.minus,
+                        //           size: 15,
+                        //         ),
+                        //       ),
+                        //       const Text(
+                        //         '1',
+                        //         style: TextStyle(fontSize: 20),
+                        //       ),
+                        //       GestureDetector(
+                        //         onTap: () async {
+                        //           log('Add count');
+                        //         },
+                        //         child: const Icon(
+                        //           CupertinoIcons.add,
+                        //           size: 15,
+                        //         ),
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
+                      )
                     ],
                   ),
                 ],
