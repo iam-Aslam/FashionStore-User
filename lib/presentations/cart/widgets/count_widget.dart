@@ -8,7 +8,7 @@ class CountWidget extends StatefulWidget {
 }
 
 class CountWidgetState extends State<CountWidget> {
-  int count = 1; // Initial count value
+  int count = 1;
 
   void reduceCount() {
     setState(() {

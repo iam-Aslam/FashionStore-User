@@ -1,17 +1,12 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-// ignore_for_file: must_be_immutable
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-
 import 'package:fashionstore/core/constants.dart';
 import 'package:fashionstore/widgets/main_heading_widget.dart';
-
 import '../home/widget/Shimmer_widget.dart';
 import 'widgets/cart_widget.dart';
 
@@ -119,9 +114,6 @@ class _ScreenCartState extends State<ScreenCart> {
                             separatorBuilder: (context, index) => khieght20,
                             itemCount: documents.length,
                             itemBuilder: (context, index) {
-                              //  tPrice = documents[index].get('price') + tPrice;
-                              // Calculate the total price
-
                               return CartWidget(
                                 id: documents[index].get('id'),
                                 productId: documents[index].get('productid'),
@@ -167,7 +159,6 @@ class _ScreenCartState extends State<ScreenCart> {
                   ValueListenableBuilder(
                     valueListenable: totalPriceNotifier,
                     builder: (context, value, child) {
-                      //int tpPrice = totalPriceNotifier.value; // Get the value from the value notifier
                       return Text(
                         "₹${NumberFormat.decimalPattern().format(tPrice)}",
                         style: GoogleFonts.roboto(
@@ -181,9 +172,6 @@ class _ScreenCartState extends State<ScreenCart> {
                       );
                     },
                   ),
-                  // TotalPriceWidget(
-                  //   totalPrice: tPrice,
-                  // ),
                 ],
               ),
             ),
@@ -231,32 +219,3 @@ class _ScreenCartState extends State<ScreenCart> {
     ));
   }
 }
-
-// class TotalPriceWidget extends StatelessWidget {
-//   int totalPrice;
-//   TotalPriceWidget({
-//     Key? key,
-//     required this.totalPrice,
-//   }) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return ValueListenableBuilder(
-//       valueListenable: totalPriceNotifier,
-//       builder: (context, value, child) {
-//         int tPrice = value; // Get the value from the value notifier
-//         return Text(
-//           "₹${NumberFormat.decimalPattern().format(tPrice)}",
-//           style: GoogleFonts.roboto(
-//             textStyle: const TextStyle(
-//               letterSpacing: .5,
-//               fontSize: 20,
-//               color: Colors.black,
-//               fontWeight: FontWeight.w700,
-//             ),
-//           ),
-//         );
-//       },
-//     );
-//   }
-// }
