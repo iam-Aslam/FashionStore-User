@@ -4,10 +4,10 @@ class CountWidget extends StatefulWidget {
   const CountWidget({super.key});
 
   @override
-  _CountWidgetState createState() => _CountWidgetState();
+  CountWidgetState createState() => CountWidgetState();
 }
 
-class _CountWidgetState extends State<CountWidget> {
+class CountWidgetState extends State<CountWidget> {
   int count = 1; // Initial count value
 
   void reduceCount() {

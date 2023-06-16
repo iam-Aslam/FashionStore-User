@@ -73,42 +73,7 @@ class _CartWidgetState extends State<CartWidget> {
                   topRight: Radius.circular(20),
                   bottomRight: Radius.circular(20)),
               onPressed: (context) {
-                //  deleteCart(widget.id, widget.scaffoldContext!);
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text('Delete confirmation'),
-                      content: const Text(
-                          'Are you sure you want to delete this item?'),
-                      actions: <Widget>[
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop(false);
-                          },
-                          child: const Text(
-                            'Cancel',
-                            style: TextStyle(color: Colors.black),
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop(true);
-                          },
-                          child: const Text(
-                            'Delete',
-                            style: TextStyle(color: Colors.black),
-                          ),
-                        ),
-                      ],
-                    );
-                  },
-                ).then((value) {
-                  if (value != null && value) {
-                    deleteCart(widget.id, widget.scaffoldContext!);
-                    setState(() {});
-                  }
-                });
+                deleteCart(widget.id, widget.scaffoldContext!);
               },
               backgroundColor: Colors.black,
               foregroundColor: Colors.white,
@@ -187,43 +152,11 @@ class _CartWidgetState extends State<CartWidget> {
                       ),
                       kwidth80,
                       Container(
-                        height: 30,
-                        decoration: BoxDecoration(
-                            color: Colors.grey[300],
-                            borderRadius: BorderRadius.circular(30)),
-                        child: const CountWidget(),
-                        // child: SizedBox(
-                        //   width: size.width * 0.2,
-                        //   child: Row(
-                        //     mainAxisSize: MainAxisSize.max,
-                        //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        //     children: [
-                        //       GestureDetector(
-                        //         onTap: () async {
-                        //           log('Reduce count');
-                        //         },
-                        //         child: const Icon(
-                        //           CupertinoIcons.minus,
-                        //           size: 15,
-                        //         ),
-                        //       ),
-                        //       const Text(
-                        //         '1',
-                        //         style: TextStyle(fontSize: 20),
-                        //       ),
-                        //       GestureDetector(
-                        //         onTap: () async {
-                        //           log('Add count');
-                        //         },
-                        //         child: const Icon(
-                        //           CupertinoIcons.add,
-                        //           size: 15,
-                        //         ),
-                        //       ),
-                        //     ],
-                        //   ),
-                        // ),
-                      )
+                          height: 30,
+                          decoration: BoxDecoration(
+                              color: Colors.grey[300],
+                              borderRadius: BorderRadius.circular(30)),
+                          child: const CountWidget())
                     ],
                   ),
                 ],

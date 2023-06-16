@@ -4,6 +4,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fashionstore/widgets/snackbar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'cart_model.dart';
 import 'product_models.dart';
@@ -74,4 +75,25 @@ Future<void> deleteCart(String id, BuildContext context) {
     log("Failed to delete Cart: $error");
     alertSnackbar(context, "Failed to delete Cart Item");
   });
+}
+
+//update Quantity of product
+Future<void> updateCartQuantity(
+    int quantity, num totalPrice, String id, int productQuantity) async {
+  final users = FirebaseFirestore.instance.collection('users');
+  final String email = FirebaseAuth.instance.currentUser!.email!;
+  final reference = users.doc(email).collection('cart').doc(id);
+  try {
+    if (quantity <= productQuantity) {
+      await reference.update({
+        'quantity': quantity,
+        'totalPrice': totalPrice,
+      });
+      log("Updated cart quantity");
+    } else {
+      log("Only $productQuantity products are available");
+    }
+  } catch (error) {
+    log("Failed to update address: $error");
+  }
 }
