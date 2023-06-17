@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   int currentselected = 0;
   final pages = [
     WidgetHome(),
-    ScreenCart(),
+    const ScreenCart(),
     const ScreenWishlist(),
     const ScreenAccount(),
   ];

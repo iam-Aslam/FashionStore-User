@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fashionstore/widgets/appbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -69,23 +69,7 @@ class _ScreenCartState extends State<ScreenCart> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                InkWell(
-                  onTap: () {},
-                  child: const CircleAvatar(
-                      radius: 20,
-                      backgroundImage: AssetImage('assets/images/prev.jpg')),
-                ),
-                const Spacer(),
-                IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      CupertinoIcons.bag,
-                      size: 30,
-                    ))
-              ],
-            ),
+            const Appbar(),
             khieght10,
             MainHeading(
               text: 'My Cart',

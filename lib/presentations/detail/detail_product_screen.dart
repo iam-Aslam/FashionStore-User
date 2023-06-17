@@ -66,6 +66,22 @@ String getColorName(String color) {
 }
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
+  bool isAddedToWishlist = false;
+//checking funciton
+  Future<void> checkIfProductInWishlist() async {
+    String email = FirebaseAuth.instance.currentUser!.email!;
+    bool exists = await checkIfProductExistsInWishlist(email, widget.id);
+    setState(() {
+      isAddedToWishlist = exists;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    checkIfProductInWishlist();
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -76,7 +92,11 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             body: SingleChildScrollView(
       child: Column(
         children: [
-          DetailImageWidget(width: width, height: height, widget: widget),
+          DetailImageWidget(
+            widget: widget,
+            id: widget.id,
+            isAddedToWishlist: isAddedToWishlist,
+          ),
           Material(
             elevation: 50,
             child: Container(

@@ -2,11 +2,7 @@ import 'package:flutter/material.dart';
 
 Widget customRadioButton(String text, int index, {int value = 0}) {
   return OutlinedButton(
-    onPressed: () {
-      // setState(() {
-      //   value = index;
-      // });
-    },
+    onPressed: () {},
     style: OutlinedButton.styleFrom(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),

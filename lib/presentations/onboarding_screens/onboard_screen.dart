@@ -68,13 +68,13 @@ class _OnboardScreenState extends State<OnboardScreen> {
                                     builder: (context) => const LogIn(),
                                   ));
                             },
-                            child: Text('Skip',
+                            child: Text('Skip To Login',
                                 style: GoogleFonts.poppins(
                                   textStyle: const TextStyle(
                                     letterSpacing: .5,
                                     fontSize: 14,
+                                    fontStyle: FontStyle.italic,
                                     color: Colors.black54,
-                                    fontWeight: FontWeight.w600,
                                   ),
                                 )))
                       ],

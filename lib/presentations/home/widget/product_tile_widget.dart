@@ -1,13 +1,13 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:fashionstore/model/functions.dart';
+import 'package:fashionstore/model/wishlist_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'package:fashionstore/core/constants.dart';
 import 'package:fashionstore/presentations/detail/detail_product_screen.dart';
 
-class ProductTile extends StatelessWidget {
-  // final int index;
+class ProductTile extends StatefulWidget {
   final String id;
   final String name;
   final String subname;
@@ -17,7 +17,6 @@ class ProductTile extends StatelessWidget {
 
   const ProductTile({
     Key? key,
-    //required this.index,
     required this.id,
     required this.name,
     required this.subname,
@@ -27,19 +26,41 @@ class ProductTile extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<ProductTile> createState() => _ProductTileState();
+}
+
+class _ProductTileState extends State<ProductTile> {
+  bool isAddedToWishlist = false;
+//checking funciton
+  Future<void> checkIfProductInWishlist() async {
+    String email = FirebaseAuth.instance.currentUser!.email!;
+    bool exists = await checkIfProductExistsInWishlist(email, widget.id);
+    setState(() {
+      isAddedToWishlist = exists;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    checkIfProductInWishlist();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    String email = FirebaseAuth.instance.currentUser!.email!;
+    // Future<bool> documentExists = checkIfDocumentExists(id);
     return GestureDetector(
       onTap: () {
-        // log('Hello I a product ${index.toString} tile on tap...');
         Navigator.push(context, MaterialPageRoute(
           builder: (context) {
             return ProductDetailScreen(
-              id: id,
-              name: name,
-              subname: subname,
-              rate: rate,
-              image: image,
-              description: description,
+              id: widget.id,
+              name: widget.name,
+              subname: widget.subname,
+              rate: widget.rate,
+              image: widget.image,
+              description: widget.description,
             );
           },
         ));
@@ -52,28 +73,43 @@ class ProductTile extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(25),
                 image: DecorationImage(
-                  image: NetworkImage(image[0]),
+                  image: NetworkImage(widget.image[0]),
                   fit: BoxFit.cover,
                 )),
             child: Stack(
               children: [
                 Positioned(
-                    left: 125,
-                    top: 0,
+                    left: 127,
+                    top: -4,
                     child: IconButton(
-                      icon: const Icon(
-                        CupertinoIcons.heart_circle,
-                        color: Colors.white,
+                      icon: Icon(
+                        isAddedToWishlist
+                            ? CupertinoIcons.suit_heart_fill
+                            : CupertinoIcons.heart,
+                        color: Colors.black,
                         size: 24,
                       ),
-                      onPressed: () {},
+                      onPressed: () async {
+                        Wishlist wishlist = Wishlist(
+                          email: email,
+                          productId: widget.id,
+                        );
+                        if (isAddedToWishlist) {
+                          removeWishlist(wishlist, context);
+                        } else {
+                          addWishlist(wishlist, context);
+                        }
+                        setState(() {
+                          isAddedToWishlist = !isAddedToWishlist;
+                        });
+                      },
                     ))
               ],
             ),
           ),
           khieght10,
           Text(
-            name,
+            widget.name,
             overflow: TextOverflow.ellipsis,
             maxLines: 1,
             style: GoogleFonts.roboto(
@@ -86,7 +122,7 @@ class ProductTile extends StatelessWidget {
           ),
           khieght5,
           Text(
-            subname,
+            widget.subname,
             style: GoogleFonts.roboto(
               textStyle: const TextStyle(
                   letterSpacing: .5,
@@ -97,7 +133,7 @@ class ProductTile extends StatelessWidget {
           ),
           khieght5,
           Text(
-            "₹$rate.00",
+            "₹${widget.rate}.00",
             style: GoogleFonts.roboto(
               textStyle: const TextStyle(
                   letterSpacing: .5,

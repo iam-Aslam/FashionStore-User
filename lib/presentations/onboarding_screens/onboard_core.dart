@@ -13,22 +13,22 @@ class Onboard {
 final List<Onboard> demoData = [
   Onboard(
     image: 'assets/images/onboardimg.jpeg',
-    title2: 'New Arrival Product',
+    title2: 'For New Arrival Product',
     title1: '20% Discount Available',
     description1: 'Publish up your selfies to make yourself',
     description2: 'more beautiful with this app.',
   ),
   Onboard(
     image: 'assets/images/onboardimg1.jpg',
-    title2: 'Take Advantage',
-    title1: 'Of The Offer Shopping',
+    title2: 'Of The Offer Shopping',
+    title1: 'Take Advantage',
     description1: 'Publish up your selfies to make yourself',
     description2: 'more beautiful with this app.',
   ),
   Onboard(
     image: 'assets/images/onboardimg2.jpg',
-    title2: 'All Types Offers',
-    title1: 'Within Your Reach',
+    title2: 'Within Your Reach',
+    title1: 'All Types Offers',
     description1: 'Publish up your selfies to make yourself',
     description2: 'more beautiful with this app.',
   ),

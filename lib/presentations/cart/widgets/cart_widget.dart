@@ -17,17 +17,17 @@ class CartWidget extends StatefulWidget {
   final int quantity;
   final BuildContext? scaffoldContext;
 
-  const CartWidget({
-    Key? key,
-    required this.id,
-    required this.productId,
-    required this.color,
-    required this.size,
-    required this.price,
-    required this.totalPrice,
-    required this.quantity,
-    required this.scaffoldContext,
-  }) : super(key: key);
+  const CartWidget(
+      {Key? key,
+      required this.id,
+      required this.productId,
+      required this.color,
+      required this.size,
+      required this.price,
+      required this.totalPrice,
+      required this.quantity,
+      required this.scaffoldContext})
+      : super(key: key);
 
   @override
   State<CartWidget> createState() => _CartWidgetState();
@@ -48,6 +48,7 @@ class _CartWidgetState extends State<CartWidget> {
           id = productData.get('id');
           name = productData.get('name');
           subName = productData.get('subname');
+
           imageList = List<String>.from(productData.get('image') ??
               [
                 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfOibKCmQ1BzQ-QSNFLWlcp8BziFRksHSBrw&usqp=CAU'
@@ -61,8 +62,6 @@ class _CartWidgetState extends State<CartWidget> {
 
   @override
   Widget build(BuildContext context) {
-    // var size = MediaQuery.of(context).size;
-
     return Slidable(
       endActionPane: ActionPane(
         motion: const StretchMotion(),
@@ -96,14 +95,15 @@ class _CartWidgetState extends State<CartWidget> {
                 width: 90,
                 height: 80,
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    image: DecorationImage(
-                      image: NetworkImage(imageList != null &&
-                              imageList!.isNotEmpty
-                          ? imageList![0]
-                          : 'https://www.shutterstock.com/image-vector/new-product-260nw-457942297.jpg'),
-                      fit: BoxFit.cover,
-                    )),
+                  borderRadius: BorderRadius.circular(10),
+                  image: DecorationImage(
+                    image: NetworkImage(imageList != null &&
+                            imageList!.isNotEmpty
+                        ? imageList![0]
+                        : 'https://www.shutterstock.com/image-vector/new-product-260nw-457942297.jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
               kwidth10,
               Column(
@@ -156,7 +156,10 @@ class _CartWidgetState extends State<CartWidget> {
                           decoration: BoxDecoration(
                               color: Colors.grey[300],
                               borderRadius: BorderRadius.circular(30)),
-                          child: const CountWidget())
+                          child: CountWidget(
+                            cartId: widget.id,
+                            initialQuantity: widget.quantity,
+                          ))
                     ],
                   ),
                 ],

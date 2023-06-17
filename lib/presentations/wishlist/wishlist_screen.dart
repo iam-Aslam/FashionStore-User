@@ -1,14 +1,75 @@
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fashionstore/core/constants.dart';
+import 'package:fashionstore/presentations/home/widget/Shimmer_widget.dart';
+import 'package:fashionstore/widgets/appbar.dart';
+import 'package:fashionstore/widgets/main_heading_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'widgets/wishlist_widget.dart';
 
 class ScreenWishlist extends StatelessWidget {
   const ScreenWishlist({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(
+    String email = FirebaseAuth.instance.currentUser!.email!;
+    //var size = MediaQuery.of(context).size;
+    // var height = size.height;
+    //var width = size.width;
+    return SafeArea(
         child: Scaffold(
-      body: Center(
-        child: Text('Hello Wishlist'),
+      body: Padding(
+        padding: const EdgeInsets.only(left: 12.0, top: 12, right: 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Appbar(),
+            khieght10,
+            MainHeading(
+              text: 'Wishlist',
+            ),
+            khieght10,
+            StreamBuilder<QuerySnapshot>(
+              stream: FirebaseFirestore.instance
+                  .collection('wishlist')
+                  .where('email', isEqualTo: email)
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  final List<DocumentSnapshot> documents = snapshot.data!.docs;
+                  return documents.isNotEmpty
+                      ? Expanded(
+                          child: ListView.separated(
+                            separatorBuilder: (context, index) => khieght20,
+                            itemCount: documents.length,
+                            itemBuilder: (context, index) {
+                              return WishlistProductWidget(
+                                id: documents[index].get('id'),
+                                productId: documents[index].get('productid'),
+                              );
+                            },
+                          ),
+                        )
+                      : const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 250.0),
+                          child: Center(
+                            child: Text('Wishlist is Empty'),
+                          ),
+                        );
+                } else if (snapshot.hasError) {
+                  Text('Error: ${snapshot.error}');
+                  log(snapshot.error.toString());
+                } else if (snapshot.connectionState ==
+                    ConnectionState.waiting) {
+                  return const HomeProductShimmerEffect();
+                }
+                return const HomeProductShimmerEffect();
+              },
+            ),
+          ],
+        ),
       ),
     ));
   }
