@@ -21,7 +21,7 @@ class ScreenWishlist extends StatelessWidget {
     return SafeArea(
         child: Scaffold(
       body: Padding(
-        padding: const EdgeInsets.only(left: 12.0, top: 12, right: 10),
+        padding: const EdgeInsets.only(left: 12.0, right: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -42,6 +42,7 @@ class ScreenWishlist extends StatelessWidget {
                   return documents.isNotEmpty
                       ? Expanded(
                           child: ListView.separated(
+                            shrinkWrap: true,
                             separatorBuilder: (context, index) => khieght20,
                             itemCount: documents.length,
                             itemBuilder: (context, index) {
