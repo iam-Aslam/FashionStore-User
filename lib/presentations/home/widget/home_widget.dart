@@ -2,13 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fashionstore/presentations/products/all_products.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'package:fashionstore/core/constants.dart';
 import 'package:fashionstore/presentations/Categories/Boys/category_boys.dart';
 import 'package:fashionstore/presentations/Categories/Girls/category_women.dart';
 import 'package:fashionstore/presentations/Categories/Men/category_men.dart';
 import 'package:fashionstore/presentations/Categories/Women/category_women.dart';
-
+import 'package:page_transition/page_transition.dart';
 import '../../../widgets/side_heading_widget.dart';
 import 'Shimmer_widget.dart';
 import 'category_button_widget.dart';
@@ -18,10 +17,38 @@ import 'product_tile_widget.dart';
 import 'search_widget.dart';
 
 //home widget
-class WidgetHome extends StatelessWidget {
-  WidgetHome({super.key});
+class WidgetHome extends StatefulWidget {
+  const WidgetHome({super.key});
+
+  @override
+  State<WidgetHome> createState() => _WidgetHomeState();
+}
+
+class _WidgetHomeState extends State<WidgetHome> {
+  //ScrollController scrollController = ScrollController();
   final Stream<QuerySnapshot> _productsStream =
       FirebaseFirestore.instance.collection('products').snapshots();
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+  //     double minScrollExtent1 = scrollController.position.minScrollExtent;
+  //     double maxScrollExtent1 = scrollController.position.maxScrollExtent;
+  //     animateToMaxMin(maxScrollExtent1, minScrollExtent1, maxScrollExtent1, 25,
+  //         scrollController);
+  //   });
+  // }
+
+  // animateToMaxMin(double max, double min, double direction, int seconds,
+  //     ScrollController scrollController) {
+  //   scrollController
+  //       .animateTo(direction,
+  //           duration: Duration(seconds: seconds), curve: Curves.linear)
+  //       .then((value) {
+  //     direction = direction == max ? min : max;
+  //     animateToMaxMin(max, min, direction, seconds, scrollController);
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +60,7 @@ class WidgetHome extends StatelessWidget {
     return SafeArea(
         child: Scaffold(
             body: Padding(
-      padding: const EdgeInsets.only(left: 15, right: 15, top: 20),
+      padding: const EdgeInsets.only(left: 15, right: 15, top: 10),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,44 +100,44 @@ class WidgetHome extends StatelessWidget {
                   name: 'Men',
                   active: true,
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(
-                      builder: (context) {
-                        return const CategoryMen();
-                      },
-                    ));
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                            type: PageTransitionType.rightToLeft,
+                            child: const CategoryMen()));
                   },
                 ),
                 CategoryButton(
                   name: 'Women',
                   active: true,
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(
-                      builder: (context) {
-                        return const CategoryWomen();
-                      },
-                    ));
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                            type: PageTransitionType.rightToLeft,
+                            child: const CategoryWomen()));
                   },
                 ),
                 CategoryButton(
                   name: 'Boys',
                   active: true,
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(
-                      builder: (context) {
-                        return const CategoryBoys();
-                      },
-                    ));
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                            type: PageTransitionType.rightToLeft,
+                            child: const CategoryBoys()));
                   },
                 ),
                 CategoryButton(
                   name: 'Girls',
                   active: true,
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(
-                      builder: (context) {
-                        return const CategorGirls();
-                      },
-                    ));
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                            type: PageTransitionType.rightToLeft,
+                            child: const CategorGirls()));
                   },
                 ),
               ],

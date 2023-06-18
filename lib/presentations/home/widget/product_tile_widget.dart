@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:fashionstore/core/constants.dart';
 import 'package:fashionstore/presentations/detail/detail_product_screen.dart';
+import 'package:page_transition/page_transition.dart';
 
 class ProductTile extends StatefulWidget {
   final String id;
@@ -52,18 +53,18 @@ class _ProductTileState extends State<ProductTile> {
     // Future<bool> documentExists = checkIfDocumentExists(id);
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, MaterialPageRoute(
-          builder: (context) {
-            return ProductDetailScreen(
-              id: widget.id,
-              name: widget.name,
-              subname: widget.subname,
-              rate: widget.rate,
-              image: widget.image,
-              description: widget.description,
-            );
-          },
-        ));
+        Navigator.push(
+            context,
+            PageTransition(
+                type: PageTransitionType.bottomToTop,
+                child: ProductDetailScreen(
+                  id: widget.id,
+                  name: widget.name,
+                  subname: widget.subname,
+                  rate: widget.rate,
+                  image: widget.image,
+                  description: widget.description,
+                )));
       },
       child: Column(
         children: [

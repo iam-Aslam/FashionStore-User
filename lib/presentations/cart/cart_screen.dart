@@ -11,7 +11,7 @@ import '../home/widget/Shimmer_widget.dart';
 import 'widgets/cart_widget.dart';
 
 ValueNotifier<num> totalPriceNotifier = ValueNotifier(0);
-ValueNotifier<bool> editNotifier = ValueNotifier(false);
+//ValueNotifier<bool> editNotifier = ValueNotifier(false);
 
 class ScreenCart extends StatefulWidget {
   const ScreenCart({Key? key}) : super(key: key);
@@ -38,19 +38,17 @@ class _ScreenCartState extends State<ScreenCart> {
       }
       if (mounted) {
         setState(() {
-          totalPrice;
+          totalPriceNotifier.value = totalPrice;
         });
       }
-      totalPriceNotifier.value = totalPrice;
     }
   }
 
   @override
   void initState() {
-    editNotifier = ValueNotifier(false);
-    getTotalPrice();
-
     super.initState();
+    // editNotifier = ValueNotifier(false);
+    getTotalPrice();
   }
 
   int totalPrice = 0;

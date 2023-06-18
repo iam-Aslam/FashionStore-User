@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fashionstore/core/constants.dart';
 import 'package:fashionstore/presentations/home/widget/Shimmer_widget.dart';
@@ -10,18 +9,18 @@ import 'package:flutter/material.dart';
 import 'widgets/wishlist_widget.dart';
 
 class ScreenWishlist extends StatelessWidget {
-  const ScreenWishlist({super.key});
+  const ScreenWishlist({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     String email = FirebaseAuth.instance.currentUser!.email!;
-    //var size = MediaQuery.of(context).size;
-    // var height = size.height;
+    var size = MediaQuery.of(context).size;
+    var height = size.height;
     //var width = size.width;
     return SafeArea(
         child: Scaffold(
       body: Padding(
-        padding: const EdgeInsets.only(left: 12.0, right: 10),
+        padding: const EdgeInsets.only(left: 12.0, right: 10, top: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -31,17 +30,19 @@ class ScreenWishlist extends StatelessWidget {
               text: 'Wishlist',
             ),
             khieght10,
-            StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance
-                  .collection('wishlist')
-                  .where('email', isEqualTo: email)
-                  .snapshots(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  final List<DocumentSnapshot> documents = snapshot.data!.docs;
-                  return documents.isNotEmpty
-                      ? Expanded(
-                          child: ListView.separated(
+            SizedBox(
+              height: height / 1.38,
+              child: StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection('wishlist')
+                    .where('email', isEqualTo: email)
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    final List<DocumentSnapshot> documents =
+                        snapshot.data!.docs;
+                    return documents.isNotEmpty
+                        ? ListView.separated(
                             shrinkWrap: true,
                             separatorBuilder: (context, index) => khieght20,
                             itemCount: documents.length,
@@ -51,23 +52,23 @@ class ScreenWishlist extends StatelessWidget {
                                 productId: documents[index].get('productid'),
                               );
                             },
-                          ),
-                        )
-                      : const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 250.0),
-                          child: Center(
-                            child: Text('Wishlist is Empty'),
-                          ),
-                        );
-                } else if (snapshot.hasError) {
-                  Text('Error: ${snapshot.error}');
-                  log(snapshot.error.toString());
-                } else if (snapshot.connectionState ==
-                    ConnectionState.waiting) {
+                          )
+                        : const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 250.0),
+                            child: Center(
+                              child: Text('Wishlist is Empty'),
+                            ),
+                          );
+                  } else if (snapshot.hasError) {
+                    Text('Error: ${snapshot.error}');
+                    log(snapshot.error.toString());
+                  } else if (snapshot.connectionState ==
+                      ConnectionState.waiting) {
+                    return const HomeProductShimmerEffect();
+                  }
                   return const HomeProductShimmerEffect();
-                }
-                return const HomeProductShimmerEffect();
-              },
+                },
+              ),
             ),
           ],
         ),
