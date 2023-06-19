@@ -1,13 +1,17 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fashionstore/presentations/cart/cart_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'package:fashionstore/presentations/cart/cart_screen.dart';
+
 class Appbar extends StatelessWidget {
   const Appbar({
-    super.key,
-  });
+    Key? key,
+    required this.goBack,
+  }) : super(key: key);
+  final bool goBack;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +19,9 @@ class Appbar extends StatelessWidget {
     return Row(
       children: [
         InkWell(
-          onTap: () {},
+          onTap: () {
+            goBack ? Navigator.pop(context) : null;
+          },
           child: const CircleAvatar(
               radius: 20,
               backgroundImage: AssetImage('assets/images/prev.jpg')),

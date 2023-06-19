@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fashionstore/presentations/checkout/checkout.dart';
 import 'package:fashionstore/widgets/appbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:fashionstore/core/constants.dart';
 import 'package:fashionstore/widgets/main_heading_widget.dart';
+import 'package:page_transition/page_transition.dart';
 import '../home/widget/Shimmer_widget.dart';
 import 'widgets/cart_widget.dart';
 
@@ -67,7 +69,7 @@ class _ScreenCartState extends State<ScreenCart> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Appbar(),
+            const Appbar(goBack: false),
             khieght10,
             MainHeading(
               text: 'My Cart',
@@ -167,7 +169,15 @@ class _ScreenCartState extends State<ScreenCart> {
                   backgroundColor: Colors.black,
                   foregroundColor: Colors.white,
                 ),
-                onPressed: () async {},
+                onPressed: () async {
+                  Navigator.push(
+                    context,
+                    PageTransition(
+                      type: PageTransitionType.bottomToTop,
+                      child: const CheckoutScreen(),
+                    ),
+                  );
+                },
                 child: Row(
                   children: [
                     Text(

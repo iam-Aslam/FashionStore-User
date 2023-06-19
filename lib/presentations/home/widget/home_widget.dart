@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fashionstore/core/animation.dart';
+import 'package:fashionstore/model/offer_functions.dart';
 import 'package:fashionstore/presentations/products/all_products.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -25,30 +27,19 @@ class WidgetHome extends StatefulWidget {
 }
 
 class _WidgetHomeState extends State<WidgetHome> {
-  //ScrollController scrollController = ScrollController();
+  ScrollController scrollController = ScrollController();
   final Stream<QuerySnapshot> _productsStream =
       FirebaseFirestore.instance.collection('products').snapshots();
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-  //     double minScrollExtent1 = scrollController.position.minScrollExtent;
-  //     double maxScrollExtent1 = scrollController.position.maxScrollExtent;
-  //     animateToMaxMin(maxScrollExtent1, minScrollExtent1, maxScrollExtent1, 25,
-  //         scrollController);
-  //   });
-  // }
-
-  // animateToMaxMin(double max, double min, double direction, int seconds,
-  //     ScrollController scrollController) {
-  //   scrollController
-  //       .animateTo(direction,
-  //           duration: Duration(seconds: seconds), curve: Curves.linear)
-  //       .then((value) {
-  //     direction = direction == max ? min : max;
-  //     animateToMaxMin(max, min, direction, seconds, scrollController);
-  //   });
-  // }
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      double minScrollExtent1 = scrollController.position.minScrollExtent;
+      double maxScrollExtent1 = scrollController.position.maxScrollExtent;
+      animateToMaxMin(maxScrollExtent1, minScrollExtent1, maxScrollExtent1, 25,
+          scrollController);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,8 +80,49 @@ class _WidgetHomeState extends State<WidgetHome> {
             ),
             khieght20,
             const SearchWidget(),
-            khieght30,
-            const ExclusiveProductWidget(),
+            khieght10,
+            StreamBuilder(
+              stream: getOfferProducts(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  final data = snapshot.data;
+                  return Container(
+                    color: Colors.white,
+                    height: 100,
+                    width: double.infinity,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4.0),
+                      child: ListView.separated(
+                        controller: scrollController,
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        separatorBuilder: (context, index) => const SizedBox(
+                          width: 10,
+                        ),
+                        itemCount: data.length,
+                        itemBuilder: (context, index) {
+                          return ExclusiveProductWidget(
+                            id: data[index].get('id'),
+                            name: data[index].get('name'),
+                            subname: data[index].get('subname'),
+                            rate: data[index].get('price'),
+                            image: data[index].get('image'),
+                            description: data[index].get('description'),
+                          );
+                        },
+                      ),
+                    ),
+                  );
+                } else if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else if (snapshot.connectionState ==
+                    ConnectionState.waiting) {
+                  return const HomeProductShimmerEffect();
+                } else {
+                  return const HomeProductShimmerEffect();
+                }
+              },
+            ),
             khieght20,
             SideHeading(text: 'Categories'),
             khieght10,

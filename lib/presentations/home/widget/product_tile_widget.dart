@@ -124,6 +124,8 @@ class _ProductTileState extends State<ProductTile> {
           khieght5,
           Text(
             widget.subname,
+            maxLines: 1,
+            overflow: TextOverflow.clip,
             style: GoogleFonts.roboto(
               textStyle: const TextStyle(
                   letterSpacing: .5,

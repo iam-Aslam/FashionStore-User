@@ -98,19 +98,24 @@ class _WishlistProductWidgetState extends State<WishlistProductWidget> {
                   ),
                 ),
                 khieght5,
-                Text(
-                  subName ?? 'Data Unavailable',
-                  style: GoogleFonts.roboto(
-                    textStyle: const TextStyle(
-                        letterSpacing: .5,
-                        fontSize: 12,
-                        color: Colors.black54,
-                        fontWeight: FontWeight.w700),
+                SizedBox(
+                  width: 200,
+                  child: Text(
+                    subName ?? 'Data Unavailable',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: GoogleFonts.roboto(
+                      textStyle: const TextStyle(
+                          letterSpacing: .5,
+                          fontSize: 12,
+                          color: Colors.black54,
+                          fontWeight: FontWeight.w700),
+                    ),
                   ),
                 ),
                 khieght5,
                 Text(
-                  price.toString(),
+                  '₹ $price',
                   style: GoogleFonts.roboto(
                     textStyle: const TextStyle(
                         letterSpacing: .5,
@@ -132,15 +137,15 @@ class _WishlistProductWidgetState extends State<WishlistProductWidget> {
                         deleteWishlist(widget.id, context);
                       },
                       icon: const Icon(
-                        CupertinoIcons.minus_circle_fill,
+                        CupertinoIcons.heart_slash_fill,
                         color: Colors.black,
                       )),
-                  IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        CupertinoIcons.cart_fill_badge_plus,
-                        color: Colors.black,
-                      ))
+                  // IconButton(
+                  //     onPressed: () {},
+                  //     icon: const Icon(
+                  //       CupertinoIcons.cart_fill_badge_plus,
+                  //       color: Colors.black,
+                  //     ))
                 ],
               ),
             )

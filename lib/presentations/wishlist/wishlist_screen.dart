@@ -24,7 +24,7 @@ class ScreenWishlist extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Appbar(),
+            const Appbar(goBack: false),
             khieght10,
             MainHeading(
               text: 'Wishlist',
