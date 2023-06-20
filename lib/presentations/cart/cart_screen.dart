@@ -39,9 +39,7 @@ class _ScreenCartState extends State<ScreenCart> {
         totalPrice += totalprice;
       }
       if (mounted) {
-        setState(() {
-          totalPriceNotifier.value = totalPrice;
-        });
+        totalPriceNotifier.value = totalPrice;
       }
     }
   }
