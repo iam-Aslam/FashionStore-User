@@ -27,7 +27,7 @@ class _ScreenCartState extends State<ScreenCart> {
   int itemCount = 0;
 
   getTotalPrice() async {
-    final String email = FirebaseAuth.instance.currentUser!.email!;
+    final String email = FirebaseAuth.instance.currentUser!.email ?? '';
     QuerySnapshot snap = await FirebaseFirestore.instance
         .collection('cart')
         .where('email', isEqualTo: email)
@@ -39,7 +39,10 @@ class _ScreenCartState extends State<ScreenCart> {
         totalPrice += totalprice;
       }
       if (mounted) {
+        // setState(() {
         totalPriceNotifier.value = totalPrice;
+        // });
+
       }
     }
   }
@@ -97,12 +100,14 @@ class _ScreenCartState extends State<ScreenCart> {
                             itemCount: documents.length,
                             itemBuilder: (context, index) {
                               return CartWidget(
-                                id: documents[index].get('id'),
-                                productId: documents[index].get('productid'),
+                                id: documents[index].get('id').toString(),
+                                productId: documents[index]
+                                    .get('productid')
+                                    .toString(),
                                 price: documents[index].get('price'),
                                 totalPrice: documents[index].get('totalprice'),
-                                color: documents[index].get('color'),
-                                size: documents[index].get('size'),
+                                color: documents[index].get('color').toString(),
+                                size: documents[index].get('size').toString(),
                                 quantity: documents[index].get('quantity'),
                                 scaffoldContext: _scaffoldKey.currentContext,
                               );
