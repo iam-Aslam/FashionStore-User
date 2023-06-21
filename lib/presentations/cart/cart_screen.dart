@@ -92,7 +92,9 @@ class _ScreenCartState extends State<ScreenCart> {
                       int quantity = doc.get('quantity');
                       tPrice += price * quantity;
                     }
-                    totalPriceNotifier.value = tPrice;
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      totalPriceNotifier.value = tPrice;
+                    });
                     return documents.isNotEmpty
                         ? ListView.separated(
                             separatorBuilder: (context, index) => khieght20,
