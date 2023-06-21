@@ -42,6 +42,7 @@ class _ScreenCartState extends State<ScreenCart> {
         // setState(() {
         totalPriceNotifier.value = totalPrice;
         // });
+
       }
     }
   }
