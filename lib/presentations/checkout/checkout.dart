@@ -8,6 +8,8 @@ class CheckoutScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+
     return SafeArea(
       child: Scaffold(
         body: Padding(
@@ -20,9 +22,148 @@ class CheckoutScreen extends StatelessWidget {
               ),
               khieght10,
               MainHeading(
-                text: 'Checkout',
+                text: 'Delivery Address',
               ),
               khieght10,
+              Center(
+                child: IntrinsicHeight(
+                  child: Container(
+                    width: size.width * 0.9,
+                    decoration: const BoxDecoration(
+                      // color: Colors.amber,
+                      border: Border(
+                        top: BorderSide(
+                          width: 1,
+                          color: Colors.black,
+                        ),
+                        bottom: BorderSide(color: Colors.black, width: 1),
+                        right: BorderSide(
+                          width: 1,
+                          color: Colors.black,
+                        ),
+                        left: BorderSide(color: Colors.black, width: 1), // Ad
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "Address",
+                            style: TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          const Text(
+                            "prakfalf",
+                            style: TextStyle(
+                              fontSize: 15,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          const Text(
+                            "state",
+                            style: TextStyle(
+                              fontSize: 15,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          const Text(
+                            //"${addressList[selectedAddressIndex]['city']} - ${addressList[selectedAddressIndex]['pin code']}",
+                            'address',
+                            style: TextStyle(
+                              fontSize: 15,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  //changeAddressPopUp(size);
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: Colors.grey,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  child: const Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Center(
+                                      child: Text(
+                                        'Change',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              )
+              // : Center(
+              //     child: GestureDetector(
+              //       onTap: () {
+              //         Navigator.push(
+              //             context,
+              //             MaterialPageRoute(
+              //               builder: (context) => AddNewAddresScreen(
+              //                 fromCheckOut: true,
+              //               ),
+              //             ));
+              //       },
+              //       child: Container(
+              //         width: size.width * 0.9,
+              //         height: size.height * 0.1,
+              //         decoration: const BoxDecoration(
+              //           // color: Colors.amber,
+              //           border: Border(
+              //             top: BorderSide(
+              //               width: 1,
+              //               color: kBlackColor,
+              //             ),
+              //             bottom:
+              //                 BorderSide(color: kBlackColor, width: 1),
+              //             right: BorderSide(
+              //               width: 1,
+              //               color: kBlackColor,
+              //             ),
+              //             left: BorderSide(
+              //                 color: kBlackColor, width: 1), // Ad
+              //           ),
+              //         ),
+              //         child: const Center(
+              //             child: Text(
+              //           "Add New Address",
+              //           style: TextStyle(
+              //             fontSize: 18,
+              //           ),
+              //         )),
+              //       ),
+              //     ),
+              //   ),
             ],
           ),
         ),

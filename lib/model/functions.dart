@@ -73,6 +73,10 @@ Future<void> deleteCart(String id, BuildContext context) {
   }).catchError((error) {
     log("Failed to delete Cart: $error");
     alertSnackbar(context, "Failed to delete Cart Item");
+    // Fluttertoast.showToast(
+    //   msg: 'Cart Item Removed',
+    //   backgroundColor: Colors.grey,
+    // );
   });
 }
 
@@ -88,6 +92,7 @@ Future<void> updateCartQuantity(
         'quantity': quantity,
         'totalPrice': totalPrice,
       });
+
       log("Updated cart quantity");
     } else {
       log("Only $productQuantity products are available");
@@ -108,6 +113,7 @@ Future<void> addWishlist(Wishlist wishlistModel, BuildContext context) async {
       'email': wishlistModel.email,
     }).then((value) {
       log('Wishlisted');
+      alertSnackbar(context, "Item Added To Wishlist");
     });
   } catch (error) {
     log('Failed to add wishlist: $error');
@@ -127,8 +133,10 @@ Future<void> removeWishlist(
       for (var doc in querySnapshot.docs) {
         doc.reference.delete();
       }
+    }).then((value) {
+      log('removed from wishlist');
+      alertSnackbar(context, "Item Removed From Wishlist");
     });
-    log('Removed from wishlist');
   } catch (error) {
     log('Failed to remove from wishlist: $error');
   }

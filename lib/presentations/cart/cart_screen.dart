@@ -27,6 +27,7 @@ class _ScreenCartState extends State<ScreenCart> {
   int itemCount = 0;
 
   getTotalPrice() async {
+    int totalPrice = 0;
     final String email = FirebaseAuth.instance.currentUser!.email ?? '';
     QuerySnapshot snap = await FirebaseFirestore.instance
         .collection('cart')
@@ -39,12 +40,12 @@ class _ScreenCartState extends State<ScreenCart> {
         totalPrice += totalprice;
       }
       if (mounted) {
-        // setState(() {
-        totalPriceNotifier.value = totalPrice;
-        // });
-
+        setState(() {
+          totalPriceNotifier.value = totalPrice;
+        });
       }
     }
+    return totalPrice;
   }
 
   @override
@@ -54,7 +55,6 @@ class _ScreenCartState extends State<ScreenCart> {
     getTotalPrice();
   }
 
-  int totalPrice = 0;
   @override
   Widget build(BuildContext context) {
     int tPrice = 0;
@@ -93,9 +93,7 @@ class _ScreenCartState extends State<ScreenCart> {
                       int quantity = doc.get('quantity');
                       tPrice += price * quantity;
                     }
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      totalPriceNotifier.value = tPrice;
-                    });
+                    totalPriceNotifier.value = tPrice;
                     return documents.isNotEmpty
                         ? ListView.separated(
                             separatorBuilder: (context, index) => khieght20,

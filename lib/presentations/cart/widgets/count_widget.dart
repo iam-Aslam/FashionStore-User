@@ -20,6 +20,7 @@ class CountWidget extends StatelessWidget {
       final quantityRef =
           FirebaseFirestore.instance.collection('cart').doc(cartId);
       quantityRef.update({'quantity': quantity.value});
+
       log(quantity.value.toString());
     }
 

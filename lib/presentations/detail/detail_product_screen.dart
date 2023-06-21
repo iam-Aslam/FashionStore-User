@@ -268,44 +268,48 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 spacing: -12,
                                 direction: Axis.vertical,
                                 children: _colours
-                                    .map((color) => Container(
-                                          decoration: BoxDecoration(
-                                            // color: Colors.white,
-                                            border: Border.all(
-                                              color: _selectedsize == color
-                                                  ? Colors.black
-                                                  : Colors.transparent,
-                                              width: _selectedsize == color
-                                                  ? 2.0
-                                                  : 0.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(20),
+                                    .map(
+                                      (color) => Container(
+                                        decoration: BoxDecoration(
+                                          // color: Colors.white,
+                                          border: Border.all(
+                                            color: _selectedsize == color
+                                                ? Colors.black
+                                                : Colors.transparent,
+                                            width: _selectedsize == color
+                                                ? 2.0
+                                                : 0.0,
                                           ),
-                                          child: ChoiceChip(
-                                            label: Text(
-                                              color,
-                                              style: const TextStyle(
-                                                  fontSize: 10,
-                                                  color: Colors.grey),
-                                            ),
-                                            backgroundColor: getColor(color),
-                                            disabledColor: Colors.yellow,
-                                            selectedColor: getColor(color),
-                                            shape: const CircleBorder(
-                                              side: BorderSide(
-                                                  width: 0.75,
-                                                  color: Colors.grey,
-                                                  style: BorderStyle.solid),
-                                            ),
-                                            selected: _selectedColor == color,
-                                            onSelected: (selected) {
-                                              if (selected) {
-                                                _selectColor(color);
-                                              }
-                                            },
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                        child: ChoiceChip(
+                                          label: Text(
+                                            color,
+                                            style: const TextStyle(
+                                                fontSize: 10,
+                                                color: Colors.grey),
                                           ),
-                                        ))
+                                          backgroundColor: getColor(color),
+                                          disabledColor: Colors.yellow,
+                                          selectedColor: getColor(color),
+                                          shape: CircleBorder(
+                                            side: BorderSide(
+                                                width: 2,
+                                                color: _selectedColor == color
+                                                    ? Colors.black
+                                                    : Colors.grey,
+                                                style: BorderStyle.solid),
+                                          ),
+                                          selected: _selectedColor == color,
+                                          onSelected: (selected) {
+                                            if (selected) {
+                                              _selectColor(color);
+                                            }
+                                          },
+                                        ),
+                                      ),
+                                    )
                                     .toList(),
                               ),
                             ],
