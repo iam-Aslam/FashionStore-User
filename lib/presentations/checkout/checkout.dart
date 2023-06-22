@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:fashionstore/core/constants.dart';
+import 'package:fashionstore/model/functions.dart';
 import 'package:fashionstore/widgets/appbar.dart';
 import 'package:fashionstore/widgets/main_heading_widget.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +12,8 @@ class CheckoutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-
+    var address = getAddressDocument();
+    log(address.toString());
     return SafeArea(
       child: Scaffold(
         body: Padding(

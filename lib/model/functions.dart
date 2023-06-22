@@ -188,3 +188,23 @@ void deleteWishlist(String itemId, BuildContext context) {
         log('Error removing item: $error');
       });
 }
+
+//get address function
+getAddressDocument() async {
+  final email = FirebaseAuth.instance.currentUser;
+  try {
+    final QuerySnapshot<Map<String, dynamic>> snapshot = await FirebaseFirestore
+        .instance
+        .collection('address')
+        .where('email', isEqualTo: email)
+        .get();
+
+    if (snapshot.size > 0) {
+      final DocumentSnapshot<Map<String, dynamic>> document = snapshot.docs[0];
+      return document;
+    }
+  } catch (e) {
+    log('Error retrieving address document: $e');
+  }
+  return 0;
+}
