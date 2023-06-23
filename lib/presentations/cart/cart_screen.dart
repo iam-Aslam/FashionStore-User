@@ -177,7 +177,10 @@ class _ScreenCartState extends State<ScreenCart> {
                     context,
                     PageTransition(
                       type: PageTransitionType.bottomToTop,
-                      child: const CheckoutScreen(),
+                      child: CheckoutScreen(
+                        totalPrice: (totalPriceNotifier.value ~/ 2).toString(),
+                        totalCount: itemCount.toString(),
+                      ),
                     ),
                   );
                 },

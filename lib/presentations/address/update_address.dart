@@ -1,6 +1,11 @@
 // ignore_for_file: use_build_context_synchronously
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fashionstore/model/address_model.dart';
 import 'package:fashionstore/widgets/appbar.dart';
+import 'package:fashionstore/widgets/snackbar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../core/constants.dart';
@@ -112,7 +117,9 @@ class _EditAdressScreenState extends State<EditAdressScreen> {
                 SizedBox(
                   width: size.width * 0.95,
                   child: TextButton(
-                    onPressed: () async {},
+                    onPressed: () async {
+                      await updateAddressToFirestore(context);
+                    },
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
@@ -129,12 +136,12 @@ class _EditAdressScreenState extends State<EditAdressScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          CupertinoIcons.home,
+                          Icons.update_rounded,
                           color: Colors.white,
                         ),
                         kwidth10,
                         Text(
-                          'Add',
+                          'Update',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 20,
@@ -150,6 +157,30 @@ class _EditAdressScreenState extends State<EditAdressScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> updateAddressToFirestore(BuildContext context) async {
+    final cart = FirebaseFirestore.instance.collection('address');
+    String email = FirebaseAuth.instance.currentUser!.email!;
+
+    final reference = cart.doc(widget.data.id);
+    try {
+      await reference.update({
+        'name': nameController.text,
+        'address': addressController.text,
+        'pincode': pincodeController.text,
+        'phone': phoneController.text,
+        'city': cityController.text,
+        'state': stateController.text,
+        'email': email,
+      }).then((value) {
+        alertSnackbar(context, "Address Updated");
+        Navigator.pop(context);
+      });
+      log('Address Updated to Firestore');
+    } catch (e) {
+      log('Error while Updating address to Firestore: $e');
+    }
   }
 
   String? _nameValidator(String? value) {
