@@ -4,12 +4,14 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fashionstore/core/strings.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:fashionstore/core/constants.dart';
 import 'package:fashionstore/presentations/address/add_address.dart';
 import 'package:fashionstore/widgets/appbar.dart';
 import 'package:fashionstore/widgets/main_heading_widget.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'widget/address_widget.dart';
 import 'widget/price_text_widget.dart';
@@ -37,18 +39,17 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
     return SafeArea(
       child: Scaffold(
         body: Padding(
-          padding: const EdgeInsets.only(left: 12.0, right: 10, top: 10),
+          padding:
+              const EdgeInsets.only(left: 12.0, right: 10, top: 10, bottom: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Appbar(
                 goBack: true,
               ),
-              khieght10,
               MainHeading(
                 text: 'Delivery Address',
               ),
-              khieght10,
               StreamBuilder<QuerySnapshot>(
                 stream: FirebaseFirestore.instance
                     .collection('address')
@@ -263,6 +264,60 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   ),
                 ),
               ),
+              const Spacer(),
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(
+                        horizontal: size.width / 20,
+                        vertical: size.height / 50),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0)),
+                    backgroundColor: Colors.black,
+                    foregroundColor: Colors.white,
+                  ),
+                  onPressed: () async {
+                    // Navigator.push(
+                    //   context,
+                    //   PageTransition(
+                    //     type: PageTransitionType.bottomToTop,
+                    //     child: CheckoutScreen(
+                    //       totalPrice: (totalPriceNotifier.value ~/ 2).toString(),
+                    //       totalCount: itemCount.toString(),
+                    //     ),
+                    //   ),
+                    // );
+                  },
+                  child: Row(
+                    children: [
+                      Text(
+                        'Confirm Order',
+                        style: GoogleFonts.poppins(
+                          textStyle: const TextStyle(
+                            letterSpacing: .5,
+                            fontSize: 18,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                      const Spacer(),
+                      const Icon(
+                        CupertinoIcons.check_mark,
+                        size: 25,
+                      )
+                      // ClipRRect(
+                      //   borderRadius: BorderRadius.circular(5),
+                      //   child: Container(
+                      //     color: Colors.white,
+                      //     child: SizedBox(
+                      //       width: 30,
+                      //       height: 30,
+                      //       child: Image.asset('assets/images/next.jpg'),
+                      //     ),
+                      //   ),
+                      // )
+                    ],
+                  )),
             ],
           ),
         ),

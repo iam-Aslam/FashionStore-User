@@ -47,7 +47,7 @@ class AddressWidget extends StatelessWidget {
       shadowColor: Colors.black,
       child: Container(
         width: size.width * 0.9,
-        height: size.height * 0.300,
+        height: size.height * 0.250,
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(20)),
         ),
@@ -63,13 +63,22 @@ class AddressWidget extends StatelessWidget {
               AddressField(id: 'Pincode', value: pincode),
               khieght10,
               AddressField(id: 'City', value: city),
-              khieght10,
-              AddressField(id: 'State', value: state),
-              khieght10,
-              AddressField(id: 'Phone', value: phone),
               Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
+                  Column(
+                    children: [
+                      khieght10,
+                      Padding(
+                        padding: const EdgeInsets.only(right: 54.0),
+                        child: AddressField(id: 'State', value: state),
+                      ),
+                      khieght10,
+                      AddressField(id: 'Phone', value: phone),
+                    ],
+                  ),
+                  const Spacer(),
                   EditButton(
                       name: 'Edit',
                       onTap: () {
@@ -84,7 +93,7 @@ class AddressWidget extends StatelessWidget {
                         );
                       })
                 ],
-              )
+              ),
             ],
           ),
         ),
