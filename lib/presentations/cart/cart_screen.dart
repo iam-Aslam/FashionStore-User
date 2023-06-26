@@ -9,7 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:fashionstore/core/constants.dart';
 import 'package:fashionstore/widgets/main_heading_widget.dart';
 import 'package:page_transition/page_transition.dart';
-import '../home/widget/Shimmer_widget.dart';
+import '../home/widget/shimmer_widget.dart';
 import 'widgets/cart_widget.dart';
 
 ValueNotifier<num> totalPriceNotifier = ValueNotifier(0);

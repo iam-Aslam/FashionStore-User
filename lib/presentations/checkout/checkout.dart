@@ -1,12 +1,9 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fashionstore/core/strings.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:fashionstore/core/constants.dart';
 import 'package:fashionstore/presentations/address/add_address.dart';
 import 'package:fashionstore/widgets/appbar.dart';

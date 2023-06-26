@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fashionstore/core/constants.dart';
-import 'package:fashionstore/presentations/home/widget/Shimmer_widget.dart';
+import 'package:fashionstore/presentations/home/widget/shimmer_widget.dart';
 import 'package:fashionstore/widgets/appbar.dart';
 import 'package:fashionstore/widgets/main_heading_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';

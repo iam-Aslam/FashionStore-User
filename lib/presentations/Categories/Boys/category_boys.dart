@@ -3,7 +3,7 @@ import 'package:fashionstore/widgets/main_heading_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../core/constants.dart';
-import '../../home/widget/Shimmer_widget.dart';
+import '../../home/widget/shimmer_widget.dart';
 import '../../home/widget/product_tile_widget.dart';
 
 class CategoryBoys extends StatelessWidget {

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-// ignore: must_be_immutable
 class SideHeading extends StatelessWidget {
-  String text;
-  SideHeading({
+  const SideHeading({
     Key? key,
     required this.text,
   }) : super(key: key);
+  final String text;
 
   @override
   Widget build(BuildContext context) {

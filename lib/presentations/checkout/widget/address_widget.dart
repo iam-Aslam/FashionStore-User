@@ -1,8 +1,6 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:fashionstore/model/address_model.dart';
 import 'package:fashionstore/presentations/address/update_address.dart';
 import 'package:flutter/material.dart';
-
 import 'package:fashionstore/core/constants.dart';
 import 'package:fashionstore/presentations/checkout/widget/address_field.dart';
 import 'package:fashionstore/presentations/checkout/widget/edit_address_button.dart';

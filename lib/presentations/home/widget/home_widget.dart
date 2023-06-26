@@ -11,7 +11,7 @@ import 'package:fashionstore/presentations/Categories/Men/category_men.dart';
 import 'package:fashionstore/presentations/Categories/Women/category_women.dart';
 import 'package:page_transition/page_transition.dart';
 import '../../../widgets/side_heading_widget.dart';
-import 'Shimmer_widget.dart';
+import 'shimmer_widget.dart';
 import 'category_button_widget.dart';
 import 'exclusive_widget.dart';
 import 'header_widget.dart';
