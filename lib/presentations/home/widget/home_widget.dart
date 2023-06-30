@@ -99,7 +99,7 @@ class _WidgetHomeState extends State<WidgetHome> {
                         separatorBuilder: (context, index) => const SizedBox(
                           width: 10,
                         ),
-                        itemCount: data.length,
+                        itemCount: 3,
                         itemBuilder: (context, index) {
                           return ExclusiveProductWidget(
                             id: data[index].get('id'),
@@ -124,7 +124,7 @@ class _WidgetHomeState extends State<WidgetHome> {
               },
             ),
             khieght20,
-            SideHeading(text: 'Categories'),
+            const SideHeading(text: 'Categories'),
             khieght10,
             Row(
               children: [

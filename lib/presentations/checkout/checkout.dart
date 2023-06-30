@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fashionstore/core/strings.dart';
+import 'package:fashionstore/presentations/checkout/order_loading_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +10,9 @@ import 'package:fashionstore/presentations/address/add_address.dart';
 import 'package:fashionstore/widgets/appbar.dart';
 import 'package:fashionstore/widgets/main_heading_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'widget/address_widget.dart';
+import 'widget/failure_widget.dart';
 import 'widget/price_text_widget.dart';
 
 class CheckoutScreen extends StatefulWidget {
@@ -28,6 +30,37 @@ class CheckoutScreen extends StatefulWidget {
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
   int selectedPaymentIndex = 0;
+  var razorpay = Razorpay();
+  @override
+  void initState() {
+    razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+    razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+    razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+    super.initState();
+  }
+
+  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+    // num totalPrice = 0;
+    // for (int i = 0; i < cartList.length; i++) {
+    //   totalPrice += cartList[i]['totalPrice'];
+    // }
+
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const OrderLoadingScreen(),
+        ));
+  }
+
+  void _handlePaymentError(PaymentFailureResponse response) {
+    log(response.message.toString());
+    showFailure(context, "Failure", "Payment was unsuccessful");
+  }
+
+  void _handleExternalWallet(ExternalWalletResponse response) {
+    log("External Wallet Selected");
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -44,7 +77,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               const Appbar(
                 goBack: true,
               ),
-              MainHeading(
+              const MainHeading(
                 text: 'Delivery Address',
               ),
               StreamBuilder<QuerySnapshot>(
@@ -283,6 +316,24 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     //     ),
                     //   ),
                     // );
+                    if (selectedPaymentIndex == 1) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const OrderLoadingScreen(),
+                          ));
+                    } else {
+                      final user = FirebaseAuth.instance.currentUser;
+                      Map<String, dynamic> options = {
+                        'key': 'rzp_test_UHMMVsaCTOCuSf',
+                        'amount': int.parse(widget.totalPrice) * 100,
+                        'name': 'Fashion Store',
+                        'timeout': 300,
+                        'description': 'Item',
+                        'prefill': {'contact': '', 'email': user!.email}
+                      };
+                      razorpay.open(options);
+                    }
                   },
                   child: Row(
                     children: [
@@ -320,5 +371,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    razorpay.clear();
+    super.dispose();
   }
 }
