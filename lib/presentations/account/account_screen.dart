@@ -1,8 +1,7 @@
 import 'dart:developer';
 import 'package:fashionstore/presentations/address/address_screen.dart';
-import 'package:fashionstore/presentations/login/login_screen.dart';
 import 'package:fashionstore/presentations/orders/orders_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fashionstore/widgets/show_bottom.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -158,15 +157,7 @@ class ScreenAccount extends StatelessWidget {
                   foregroundColor: Colors.white,
                 ),
                 onPressed: () async {
-                  FirebaseAuth.instance.signOut().then((value) {
-                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
-                      builder: (context) {
-                        return const LogIn();
-                      },
-                    ), (route) => false);
-                  }).onError((error, stackTrace) {
-                    log("Error ${error.toString()}");
-                  });
+                  showBottomModalSheet(context);
                 },
                 child: Row(
                   children: [
