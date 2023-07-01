@@ -72,7 +72,7 @@ class _ScreenCartState extends State<ScreenCart> {
           children: [
             const Appbar(goBack: false),
             khieght10,
-            MainHeading(
+            const MainHeading(
               text: 'My Cart',
             ),
             khieght20,

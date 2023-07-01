@@ -1,5 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:checkmark/checkmark.dart';
+import 'package:fashionstore/model/functions.dart';
 import 'package:fashionstore/presentations/home/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -32,6 +33,7 @@ class _OrderLoadingScreenState extends State<OrderLoadingScreen> {
   bool checked = false;
   @override
   void initState() {
+    placeOrderAndDeleteCartItems(email!);
     // deleteAllCart(
     //   widget.cartProductIdList,
     //   widget.cartList,

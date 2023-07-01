@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fashionstore/widgets/snackbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'cart_model.dart';
 import 'product_models.dart';
 import 'wishlist_model.dart';
@@ -27,7 +28,6 @@ Future<void> addToCart(Cart cartModel, BuildContext context) async {
 
   final reference = cart.doc();
   try {
-    alertSnackbar(context, "Added to cart");
     await reference.set({
       'productid': cartModel.productId,
       'id': reference.id,
@@ -38,9 +38,23 @@ Future<void> addToCart(Cart cartModel, BuildContext context) async {
       'email': cartModel.email,
       'size': cartModel.size,
     }).then((value) => Navigator.pop(context));
-    log("Added to cart");
+    Fluttertoast.showToast(
+      msg: 'Product Added to Cart',
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.black,
+      textColor: Colors.white,
+    );
   } catch (error) {
-    alertSnackbar(context, "Failed to add product to cart: $error");
+    Fluttertoast.showToast(
+      msg: 'Failed to Add to Cart',
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.black,
+      textColor: Colors.white,
+    );
     log("Failed to add product to cart: $error");
   }
 }
@@ -69,14 +83,17 @@ Future<void> deleteCart(String id, BuildContext context) {
       FirebaseFirestore.instance.collection('cart');
   return cartProduct.doc(id).delete().then((value) {
     log("Cart Deleted");
-    alertSnackbar(context, "Product was deleted");
+    Fluttertoast.showToast(
+      msg: 'Removed from Cart',
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.black,
+      textColor: Colors.white,
+    );
   }).catchError((error) {
     log("Failed to delete Cart: $error");
     alertSnackbar(context, "Failed to delete Cart Item");
-    // Fluttertoast.showToast(
-    //   msg: 'Cart Item Removed',
-    //   backgroundColor: Colors.grey,
-    // );
   });
 }
 
@@ -113,7 +130,14 @@ Future<void> addWishlist(Wishlist wishlistModel, BuildContext context) async {
       'email': wishlistModel.email,
     }).then((value) {
       log('Wishlisted');
-      alertSnackbar(context, "Item Added To Wishlist");
+      Fluttertoast.showToast(
+        msg: 'Added to wishlist',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.black,
+        textColor: Colors.white,
+      );
     });
   } catch (error) {
     log('Failed to add wishlist: $error');
@@ -135,7 +159,14 @@ Future<void> removeWishlist(
       }
     }).then((value) {
       log('removed from wishlist');
-      alertSnackbar(context, "Item Removed From Wishlist");
+      Fluttertoast.showToast(
+        msg: 'Removed from wishlist',
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.black,
+        textColor: Colors.white,
+      );
     });
   } catch (error) {
     log('Failed to remove from wishlist: $error');
@@ -177,14 +208,60 @@ void deleteWishlist(String itemId, BuildContext context) {
       FirebaseFirestore.instance.collection('wishlist').doc(itemId);
 
   // Delete the document
-  itemRef
-      .delete()
-      .then((_) {
-        log('Item removed successfully');
-        alertSnackbar(context, "Removed From Wishlist");
-      })
-      .catchError((error) {})
-      .catchError((error) {
-        log('Error removing item: $error');
-      });
+  itemRef.delete().then((_) {
+    log('Item removed successfully');
+    Fluttertoast.showToast(
+      msg: 'Removed From Wishlist',
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.black,
+      textColor: Colors.white,
+    );
+  }).catchError((error) {
+    log('Error removing item: $error');
+  });
+}
+
+void deleteCartItems(String currentUserEmail) async {
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  CollectionReference cartCollection = firestore.collection('cart');
+
+  QuerySnapshot cartSnapshot =
+      await cartCollection.where('email', isEqualTo: currentUserEmail).get();
+
+  List<QueryDocumentSnapshot> cartDocuments = cartSnapshot.docs;
+
+  WriteBatch batch = firestore.batch();
+
+  for (var cartDoc in cartDocuments) {
+    batch.delete(cartDoc.reference);
+  }
+  log('succesfully deleted');
+  await batch.commit();
+}
+
+void placeOrderAndDeleteCartItems(String currentUserEmail) async {
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  CollectionReference cartCollection = firestore.collection('cart');
+  CollectionReference orderCollection = firestore.collection('orders');
+
+  QuerySnapshot cartSnapshot =
+      await cartCollection.where('email', isEqualTo: currentUserEmail).get();
+
+  List<QueryDocumentSnapshot> cartDocuments = cartSnapshot.docs;
+
+  WriteBatch batch = firestore.batch();
+
+  for (var cartDoc in cartDocuments) {
+    Map<String, dynamic> cartItemData = cartDoc.data() as Map<String, dynamic>;
+    // Set active field as true in the order document
+    cartItemData['active'] = true;
+    DocumentReference orderDocRef = orderCollection.doc();
+    cartItemData['orderId'] = orderDocRef.id;
+    batch.set(orderDocRef, cartItemData);
+    batch.delete(cartDoc.reference);
+  }
+  log('succesfull');
+  await batch.commit();
 }

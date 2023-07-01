@@ -17,7 +17,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int currentselected = 0;
   final pages = [
-    const WidgetHome(),
+    WidgetHome(),
     const ScreenCart(),
     const ScreenWishlist(),
     const ScreenAccount(),

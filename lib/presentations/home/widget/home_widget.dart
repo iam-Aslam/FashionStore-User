@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fashionstore/core/animation.dart';
 import 'package:fashionstore/model/offer_functions.dart';
 import 'package:fashionstore/presentations/products/all_products.dart';
 import 'package:flutter/material.dart';
@@ -19,28 +18,13 @@ import 'product_tile_widget.dart';
 import 'search_widget.dart';
 
 //home widget
-class WidgetHome extends StatefulWidget {
-  const WidgetHome({super.key});
+class WidgetHome extends StatelessWidget {
+  WidgetHome({super.key});
 
-  @override
-  State<WidgetHome> createState() => _WidgetHomeState();
-}
-
-class _WidgetHomeState extends State<WidgetHome> {
-  ScrollController scrollController = ScrollController();
   final Stream<QuerySnapshot> _productsStream =
       FirebaseFirestore.instance.collection('products').snapshots();
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      double minScrollExtent1 = scrollController.position.minScrollExtent;
-      double maxScrollExtent1 = scrollController.position.maxScrollExtent;
-      animateToMaxMin(maxScrollExtent1, minScrollExtent1, maxScrollExtent1, 25,
-          scrollController);
-    });
-  }
 
+  // @override
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -93,7 +77,7 @@ class _WidgetHomeState extends State<WidgetHome> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 4.0),
                       child: ListView.separated(
-                        controller: scrollController,
+                        // controller: scrollController,
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
                         separatorBuilder: (context, index) => const SizedBox(

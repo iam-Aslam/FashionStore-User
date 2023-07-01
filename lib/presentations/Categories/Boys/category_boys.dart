@@ -54,7 +54,7 @@ class CategoryBoys extends StatelessWidget {
                   )
                 ],
               ),
-              MainHeading(
+              const MainHeading(
                 text: 'Boys',
               ),
               khieght10,

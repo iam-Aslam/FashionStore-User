@@ -26,7 +26,7 @@ class ScreenWishlist extends StatelessWidget {
           children: [
             const Appbar(goBack: false),
             khieght10,
-            MainHeading(
+            const MainHeading(
               text: 'Wishlist',
             ),
             khieght10,

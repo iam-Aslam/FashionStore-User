@@ -136,7 +136,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         width: size.width * 0.9,
                         height: size.height * 0.300,
                         decoration: const BoxDecoration(
-                          // color: Colors.amber,
                           border: Border(
                             top: BorderSide(
                               width: 1,
@@ -306,16 +305,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     foregroundColor: Colors.white,
                   ),
                   onPressed: () async {
-                    // Navigator.push(
-                    //   context,
-                    //   PageTransition(
-                    //     type: PageTransitionType.bottomToTop,
-                    //     child: CheckoutScreen(
-                    //       totalPrice: (totalPriceNotifier.value ~/ 2).toString(),
-                    //       totalCount: itemCount.toString(),
-                    //     ),
-                    //   ),
-                    // );
                     if (selectedPaymentIndex == 1) {
                       Navigator.push(
                           context,
@@ -353,17 +342,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                         CupertinoIcons.check_mark,
                         size: 25,
                       )
-                      // ClipRRect(
-                      //   borderRadius: BorderRadius.circular(5),
-                      //   child: Container(
-                      //     color: Colors.white,
-                      //     child: SizedBox(
-                      //       width: 30,
-                      //       height: 30,
-                      //       child: Image.asset('assets/images/next.jpg'),
-                      //     ),
-                      //   ),
-                      // )
                     ],
                   )),
             ],

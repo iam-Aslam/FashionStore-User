@@ -1,6 +1,7 @@
 import 'dart:developer';
-import 'package:fashionstore/presentations/address/add_address.dart';
+import 'package:fashionstore/presentations/address/address_screen.dart';
 import 'package:fashionstore/presentations/login/login_screen.dart';
+import 'package:fashionstore/presentations/orders/orders_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ class ScreenAccount extends StatelessWidget {
           children: [
             const Appbar(goBack: false),
             khieght10,
-            MainHeading(
+            const MainHeading(
               text: 'Account',
             ),
             khieght10,
@@ -114,7 +115,11 @@ class ScreenAccount extends StatelessWidget {
                           name: 'My Orders',
                           icon: CupertinoIcons.bag,
                           voidCallback: () {
-                            log('Hello I am Your Orders');
+                            Navigator.push(
+                                context,
+                                PageTransition(
+                                    type: PageTransitionType.rightToLeft,
+                                    child: const OrderScreen()));
                           },
                         ),
                         AccountTile(
@@ -124,8 +129,8 @@ class ScreenAccount extends StatelessWidget {
                             Navigator.push(
                               context,
                               PageTransition(
-                                type: PageTransitionType.bottomToTop,
-                                child: AddNewAddresScreen(),
+                                type: PageTransitionType.rightToLeft,
+                                child: const AddressScreen(),
                               ),
                             );
                             log('Hello I am Your shipping Address');

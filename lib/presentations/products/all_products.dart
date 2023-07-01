@@ -50,7 +50,7 @@ class AllProducts extends StatelessWidget {
                   )
                 ],
               ),
-              MainHeading(
+              const MainHeading(
                 text: 'All Products',
               ),
               khieght10,
