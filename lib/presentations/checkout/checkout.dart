@@ -40,11 +40,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   }
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
-    // num totalPrice = 0;
-    // for (int i = 0; i < cartList.length; i++) {
-    //   totalPrice += cartList[i]['totalPrice'];
-    // }
-
     Navigator.push(
         context,
         MaterialPageRoute(

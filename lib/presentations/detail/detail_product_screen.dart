@@ -4,8 +4,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 import '../../core/constants.dart';
 import '../../model/cart_model.dart';
+import '../checkout/checkout.dart';
 import 'widgets/image_widget.dart';
 
 class ProductDetailScreen extends StatefulWidget {
@@ -330,7 +332,16 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               foregroundColor: Colors.white,
                             ),
                             onPressed: () {
-                              log('Buy Now function');
+                              Navigator.push(
+                                context,
+                                PageTransition(
+                                  type: PageTransitionType.bottomToTop,
+                                  child: CheckoutScreen(
+                                    totalPrice: (widget.rate).toString(),
+                                    totalCount: 1.toString(),
+                                  ),
+                                ),
+                              );
                             },
                             child: Row(
                               children: [

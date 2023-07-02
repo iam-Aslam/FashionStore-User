@@ -1,6 +1,9 @@
 import 'dart:developer';
+import 'package:fashionstore/presentations/account/account_screen.dart';
+import 'package:fashionstore/presentations/profile/profile_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 class HeadWidget extends StatelessWidget {
   const HeadWidget({
@@ -15,12 +18,25 @@ class HeadWidget extends StatelessWidget {
         CircleAvatar(
           backgroundColor: Colors.black,
           child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ScreenAccount(),
+                    ));
+              },
               icon: const Icon(CupertinoIcons.settings_solid)),
         ),
         InkWell(
           onTap: () {
             log('Go to Profile');
+            Navigator.push(
+              context,
+              PageTransition(
+                type: PageTransitionType.rightToLeft,
+                child: const ProfileScreen(),
+              ),
+            );
           },
           child: const CircleAvatar(
             backgroundColor: Colors.black,
