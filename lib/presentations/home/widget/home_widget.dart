@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fashionstore/model/offer_functions.dart';
 import 'package:fashionstore/presentations/products/all_products.dart';
@@ -17,14 +18,12 @@ import 'header_widget.dart';
 import 'product_tile_widget.dart';
 import 'search_widget.dart';
 
-//home widget
 class WidgetHome extends StatelessWidget {
   WidgetHome({super.key});
 
   final Stream<QuerySnapshot> _productsStream =
       FirebaseFirestore.instance.collection('products').snapshots();
 
-  // @override
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -73,27 +72,34 @@ class WidgetHome extends StatelessWidget {
                   return Container(
                     color: Colors.white,
                     height: 100,
-                    width: double.infinity,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(vertical: 4.0),
-                      child: ListView.separated(
-                        // controller: scrollController,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        separatorBuilder: (context, index) => const SizedBox(
-                          width: 10,
+                      child: CarouselSlider(
+                        options: CarouselOptions(
+                          height: 100,
+                          enableInfiniteScroll: true,
+                          scrollDirection: Axis.horizontal,
+                          autoPlay: true,
+                          autoPlayCurve: Curves.fastOutSlowIn,
+                          autoPlayAnimationDuration:
+                              const Duration(milliseconds: 800),
+                          viewportFraction: 0.95,
+                          enlargeCenterPage: true,
                         ),
-                        itemCount: 3,
-                        itemBuilder: (context, index) {
-                          return ExclusiveProductWidget(
-                            id: data[index].get('id'),
-                            name: data[index].get('name'),
-                            subname: data[index].get('subname'),
-                            rate: data[index].get('price'),
-                            image: data[index].get('image'),
-                            description: data[index].get('description'),
+                        items: List.generate(data.length, (index) {
+                          return Builder(
+                            builder: (BuildContext context) {
+                              return ExclusiveProductWidget(
+                                id: data[index].get('id'),
+                                name: data[index].get('name'),
+                                subname: data[index].get('subname'),
+                                rate: data[index].get('price'),
+                                image: data[index].get('image'),
+                                description: data[index].get('description'),
+                              );
+                            },
                           );
-                        },
+                        }),
                       ),
                     ),
                   );

@@ -2,7 +2,6 @@ import 'package:fashionstore/presentations/detail/detail_product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
-
 import '../../../core/constants.dart';
 
 class ExclusiveProductWidget extends StatelessWidget {
@@ -107,8 +106,8 @@ class ExclusiveProductWidget extends StatelessWidget {
               ),
               const Spacer(),
               Container(
-                width: 90,
-                height: 70,
+                width: 70,
+                height: 50,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     image: const DecorationImage(
