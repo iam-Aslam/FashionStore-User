@@ -56,6 +56,7 @@ dependencies:
   cached_network_image: ^3.2.3
   provider: ^6.0.5
   carousel_slider: ^4.2.1
+  connectivity_plus: ^4.0.1
 
 dev_dependencies:
   flutter_test:

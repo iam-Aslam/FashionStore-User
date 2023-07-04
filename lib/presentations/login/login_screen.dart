@@ -29,292 +29,258 @@ class _LogInState extends State<LogIn> {
     var height = size.height;
     var width = size.width;
     return SafeArea(
-        child: StreamBuilder<User?>(
-      stream: FirebaseAuth.instance.authStateChanges(),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return Scaffold(
-            body: Padding(
-              padding: const EdgeInsets.all(25.0),
-              child: SingleChildScrollView(
-                child: Form(
-                  key: formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+      child: Scaffold(
+        body: Padding(
+          padding: const EdgeInsets.all(25.0),
+          child: SingleChildScrollView(
+            child: Form(
+              key: formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Logo(),
+                  khieght60,
+                  Text(
+                    'Welcome!',
+                    style: GoogleFonts.poppins(
+                      textStyle: const TextStyle(
+                        letterSpacing: .5,
+                        fontSize: 25,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                  khieght10,
+                  Text(
+                    'please login or sign up to continue our app',
+                    style: GoogleFonts.poppins(
+                      textStyle: const TextStyle(
+                        letterSpacing: .5,
+                        fontSize: 14,
+                        color: Colors.black45,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                  khieght20,
+                  TextFormField(
+                    controller: emailController,
+                    validator: (value) {
+                      if (value!.isEmpty ||
+                          !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                              .hasMatch(value)) {
+                        return "Enter Valid Email";
+                      } else {
+                        return null;
+                      }
+                    },
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: InputDecoration(
+                      labelText: 'Enter Email',
+                      labelStyle: GoogleFonts.poppins(
+                        textStyle: const TextStyle(
+                          letterSpacing: .5,
+                          fontSize: 18,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  ),
+                  khieght10,
+                  TextFormField(
+                    controller: passwordController,
+                    obscureText: passenable,
+                    enableSuggestions: false,
+                    autocorrect: false,
+                    validator: (value) {
+                      if (value!.isEmpty || value.length < 6) {
+                        return "Enter Valid Password";
+                      } else {
+                        return null;
+                      }
+                    },
+                    decoration: InputDecoration(
+                      labelText: 'Password',
+                      labelStyle: GoogleFonts.poppins(
+                        textStyle: const TextStyle(
+                          letterSpacing: .5,
+                          fontSize: 18,
+                          color: Colors.black,
+                        ),
+                      ),
+                      suffix: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            if (passenable) {
+                              passenable = false;
+                            } else {
+                              passenable = true;
+                            }
+                          });
+                        },
+                        icon: Icon(passenable == true
+                            ? Icons.remove_red_eye
+                            : Icons.lock_outline),
+                      ),
+                    ),
+                  ),
+                  khieght5,
+                  Row(
                     children: [
-                      const Logo(),
-                      khieght60,
-                      Text(
-                        'Welcome!',
-                        style: GoogleFonts.poppins(
-                          textStyle: const TextStyle(
-                            letterSpacing: .5,
-                            fontSize: 25,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w700,
+                      const Spacer(),
+                      InkWell(
+                        onTap: () {
+                          log('Forgot Password');
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ResetScreen(),
+                              ));
+                        },
+                        child: Text(
+                          'Forgot Password?',
+                          style: GoogleFonts.poppins(
+                            textStyle: const TextStyle(
+                              // letterSpacing: .5,
+                              fontSize: 12,
+                              color: Colors.black,
+                            ),
                           ),
                         ),
                       ),
-                      khieght10,
-                      Text(
-                        'please login or sign up to continue our app',
+                    ],
+                  ),
+                  khieght20,
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: width / 2.75, vertical: height / 50),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30.0)),
+                        backgroundColor: Colors.black,
+                        foregroundColor: Colors.white,
+                      ),
+                      onPressed: () {
+                        if (formKey.currentState!.validate()) {
+                          log('validation success');
+                          FirebaseAuth.instance
+                              .signInWithEmailAndPassword(
+                                  email: emailController.text,
+                                  password: passwordController.text)
+                              .then((value) {
+                            log('Login success');
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const HomePage(),
+                                )).onError((error, stackTrace) {
+                              alertSnackbar(
+                                  context, 'Error: ${error.toString()}');
+                              log('Error: ${error.toString()}');
+                            });
+                          });
+                        }
+                      },
+                      child: Text(
+                        'Login',
                         style: GoogleFonts.poppins(
                           textStyle: const TextStyle(
                             letterSpacing: .5,
                             fontSize: 14,
-                            color: Colors.black45,
-                            fontWeight: FontWeight.w500,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
-                      ),
-                      khieght20,
-
-                      TextFormField(
-                        controller: emailController,
-                        validator: (value) {
-                          if (value!.isEmpty ||
-                              !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                  .hasMatch(value)) {
-                            return "Enter Valid Email";
-                          } else {
-                            return null;
-                          }
-                        },
-                        keyboardType: TextInputType.emailAddress,
-                        decoration: InputDecoration(
-                          labelText: 'Enter Email',
-                          labelStyle: GoogleFonts.poppins(
-                            textStyle: const TextStyle(
-                              letterSpacing: .5,
-                              fontSize: 18,
-                              color: Colors.black,
-                            ),
-                          ),
+                      )),
+                  khieght10,
+                  Center(
+                    child: Text(
+                      'or',
+                      style: GoogleFonts.poppins(
+                        textStyle: const TextStyle(
+                          letterSpacing: .5,
+                          fontSize: 14,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
-                      khieght10,
-                      // Text(
-                      //   'Password',
-                      //   style: GoogleFonts.poppins(
-                      //     textStyle: const TextStyle(
-                      //       letterSpacing: .5,
-                      //       fontSize: 20,
-                      //       color: Colors.black,
-                      //       fontWeight: FontWeight.w600,
-                      //     ),
-                      //   ),
-                      // ),
-                      TextFormField(
-                        controller: passwordController,
-                        obscureText: passenable,
-                        enableSuggestions: false,
-                        autocorrect: false,
-                        validator: (value) {
-                          if (value!.isEmpty || value.length < 6) {
-                            return "Enter Valid Password";
-                          } else {
-                            return null;
-                          }
-                        },
-                        decoration: InputDecoration(
-                          labelText: 'Password',
-                          labelStyle: GoogleFonts.poppins(
-                            textStyle: const TextStyle(
-                              letterSpacing: .5,
-                              fontSize: 18,
-                              color: Colors.black,
-                            ),
+                    ),
+                  ),
+                  khieght10,
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: width / 8, vertical: height / 100),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0)),
+                      backgroundColor: Colors.black,
+                      foregroundColor: Colors.white,
+                    ),
+                    onPressed: () {
+                      loginWithGoogle();
+                    },
+                    child: SizedBox(
+                      width: width / 1,
+                      height: height / 20,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          SizedBox(
+                              width: width / 20,
+                              height: height / 60,
+                              child: Image.network(
+                                  'http://pngimg.com/uploads/google/google_PNG19635.png',
+                                  fit: BoxFit.cover)),
+                          SizedBox(
+                            width: width / 50,
                           ),
-                          suffix: IconButton(
-                            onPressed: () {
-                              setState(() {
-                                if (passenable) {
-                                  passenable = false;
-                                } else {
-                                  passenable = true;
-                                }
-                              });
-                            },
-                            icon: Icon(passenable == true
-                                ? Icons.remove_red_eye
-                                : Icons.lock_outline),
-                          ),
-                        ),
-                      ),
-                      khieght5,
-                      Row(
-                        children: [
-                          const Spacer(),
-                          InkWell(
-                            onTap: () {
-                              log('Forgot Password');
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => ResetScreen(),
-                                  ));
-                            },
-                            child: Text(
-                              'Forgot Password?',
-                              style: GoogleFonts.poppins(
-                                textStyle: const TextStyle(
-                                  // letterSpacing: .5,
-                                  fontSize: 12,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      khieght20,
-                      ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: width / 2.75,
-                                vertical: height / 50),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30.0)),
-                            backgroundColor: Colors.black,
-                            foregroundColor: Colors.white,
-                          ),
-                          onPressed: () {
-                            if (formKey.currentState!.validate()) {
-                              log('validation success');
-                              FirebaseAuth.instance
-                                  .signInWithEmailAndPassword(
-                                      email: emailController.text,
-                                      password: passwordController.text)
-                                  .then((value) {
-                                log('Login success');
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const HomePage(),
-                                    )).onError((error, stackTrace) {
-                                  alertSnackbar(
-                                      context, 'Error: ${error.toString()}');
-                                  log('Error: ${error.toString()}');
-                                });
-                              });
-                            }
-                          },
-                          child: Text(
-                            'Login',
+                          Text(
+                            'Continue with Google',
                             style: GoogleFonts.poppins(
                               textStyle: const TextStyle(
-                                letterSpacing: .5,
                                 fontSize: 14,
                                 color: Colors.white,
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
-                          )),
-                      khieght10,
-                      Center(
-                        child: Text(
-                          'or',
-                          style: GoogleFonts.poppins(
-                            textStyle: const TextStyle(
-                              letterSpacing: .5,
-                              fontSize: 14,
-                              color: Colors.black,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
+                          )
+                        ],
                       ),
-                      khieght10,
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: width / 8, vertical: height / 100),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0)),
-                          backgroundColor: Colors.black,
-                          foregroundColor: Colors.white,
-                        ),
-                        onPressed: () {
-                          loginWithGoogle();
-                        },
-                        child: SizedBox(
-                          width: width / 1,
-                          height: height / 20,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              SizedBox(
-                                  width: width / 20,
-                                  height: height / 60,
-                                  child: Image.network(
-                                      'http://pngimg.com/uploads/google/google_PNG19635.png',
-                                      fit: BoxFit.cover)),
-                              SizedBox(
-                                width: width / 50,
-                              ),
-                              Text(
-                                'Continue with Google',
-                                style: GoogleFonts.poppins(
-                                  textStyle: const TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      khieght20,
-                      Center(
-                        child: InkWell(
-                          onTap: () {
-                            log('Riderect to signup page');
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const SignUp(),
-                                ));
-                          },
-                          child: Text(
-                            'Create an Account',
-                            style: GoogleFonts.poppins(
-                              textStyle: TextStyle(
-                                letterSpacing: .5,
-                                fontSize: 14,
-                                color: Colors.blue[900],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      khieght10,
-                    ],
+                    ),
                   ),
-                ),
+                  khieght20,
+                  Center(
+                    child: InkWell(
+                      onTap: () {
+                        log('Riderect to signup page');
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SignUp(),
+                            ));
+                      },
+                      child: Text(
+                        'Create an Account',
+                        style: GoogleFonts.poppins(
+                          textStyle: TextStyle(
+                            letterSpacing: .5,
+                            fontSize: 14,
+                            color: Colors.blue[900],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  khieght10,
+                ],
               ),
             ),
-          );
-        } else {
-          Future.delayed(
-            const Duration(milliseconds: 100),
-            () => Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const HomePage(),
-              ),
-            ),
-          );
-        }
-        return const Center(
-          child: CircularProgressIndicator(
-            color: Colors.black,
           ),
-        );
-      },
-    ));
+        ),
+      ),
+    );
   }
 
   loginWithGoogle() async {
