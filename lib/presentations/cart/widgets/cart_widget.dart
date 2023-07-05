@@ -63,6 +63,9 @@ class _CartWidgetState extends State<CartWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    //var height = size.height;
+    var width = size.width;
     return Slidable(
       endActionPane: ActionPane(
         motion: const StretchMotion(),
@@ -85,7 +88,7 @@ class _CartWidgetState extends State<CartWidget> {
         borderRadius: const BorderRadius.all(Radius.circular(20)),
         child: Container(
           height: 100,
-          width: 360,
+          width: width / 1,
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
@@ -151,7 +154,9 @@ class _CartWidgetState extends State<CartWidget> {
                           ),
                         ],
                       ),
-                      kwidth80,
+                      SizedBox(
+                        width: width / 4,
+                      ),
                       Container(
                           height: 30,
                           decoration: BoxDecoration(

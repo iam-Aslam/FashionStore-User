@@ -24,7 +24,7 @@ class OnboardContent extends StatelessWidget {
       children: [
         Container(
           width: width / 1,
-          height: height / 1.9,
+          height: height / 2,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30),
               image: DecorationImage(
@@ -65,7 +65,7 @@ class OnboardContent extends StatelessWidget {
             ),
           ),
         ),
-        khieght30,
+        khieght20,
       ],
     );
   }

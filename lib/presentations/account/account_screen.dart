@@ -30,74 +30,11 @@ class ScreenAccount extends StatelessWidget {
             const MainHeading(
               text: 'Account',
             ),
-            // khieght10,
-            // GestureDetector(
-            //   onTap: () {
-            //     log('welcome to profile page');
-            //   },
-            //   child: Material(
-            //     elevation: 12,
-            //     borderRadius: const BorderRadius.all(Radius.circular(20)),
-            //     child: Container(
-            //       height: 80,
-            //       width: 360,
-            //       decoration: const BoxDecoration(
-            //         borderRadius: BorderRadius.all(Radius.circular(20)),
-            //       ),
-            //       child: Row(
-            //         crossAxisAlignment: CrossAxisAlignment.start,
-            //         children: [
-            //           kwidth10,
-            //           Container(
-            //             width: 90,
-            //             height: 70,
-            //             decoration: BoxDecoration(
-            //               borderRadius: BorderRadius.circular(10),
-            //               image: const DecorationImage(
-            //                 image: AssetImage('assets/images/nike.jpg'),
-            //                 fit: BoxFit.cover,
-            //               ),
-            //             ),
-            //           ),
-            //           kwidth10,
-            //           Column(
-            //             crossAxisAlignment: CrossAxisAlignment.start,
-            //             mainAxisAlignment: MainAxisAlignment.start,
-            //             children: [
-            //               khieght20,
-            //               Text(
-            //                 'Mohammed Aslam',
-            //                 style: GoogleFonts.roboto(
-            //                   textStyle: const TextStyle(
-            //                       letterSpacing: .5,
-            //                       fontSize: 18,
-            //                       color: Colors.black,
-            //                       fontWeight: FontWeight.w700),
-            //                 ),
-            //               ),
-            //               khieght5,
-            //               Text(
-            //                 'hello@gmail.com',
-            //                 style: GoogleFonts.roboto(
-            //                   textStyle: const TextStyle(
-            //                       letterSpacing: .5,
-            //                       fontSize: 12,
-            //                       color: Colors.black54,
-            //                       fontWeight: FontWeight.w700),
-            //                 ),
-            //               ),
-            //             ],
-            //           ),
-            //         ],
-            //       ),
-            //     ),
-            //   ),
-            // ),
             khieght20,
             IntrinsicHeight(
               child: Container(
                   width: size.width * 0.92,
-                  height: size.height * 0.36,
+                  height: size.height * 0.37,
                   decoration: BoxDecoration(
                       borderRadius: const BorderRadius.all(Radius.circular(20)),
                       border: Border.all(color: Colors.grey, width: 1.5)),

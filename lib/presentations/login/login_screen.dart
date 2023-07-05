@@ -142,8 +142,7 @@ class _LogInState extends State<LogIn> {
                           'Forgot Password?',
                           style: GoogleFonts.poppins(
                             textStyle: const TextStyle(
-                              // letterSpacing: .5,
-                              fontSize: 12,
+                              fontSize: 15,
                               color: Colors.black,
                             ),
                           ),
@@ -152,47 +151,53 @@ class _LogInState extends State<LogIn> {
                     ],
                   ),
                   khieght20,
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: width / 2.75, vertical: height / 50),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0)),
-                        backgroundColor: Colors.black,
-                        foregroundColor: Colors.white,
-                      ),
-                      onPressed: () {
-                        if (formKey.currentState!.validate()) {
-                          log('validation success');
-                          FirebaseAuth.instance
-                              .signInWithEmailAndPassword(
-                                  email: emailController.text,
-                                  password: passwordController.text)
-                              .then((value) {
-                            log('Login success');
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const HomePage(),
-                                )).onError((error, stackTrace) {
-                              alertSnackbar(
-                                  context, 'Error: ${error.toString()}');
-                              log('Error: ${error.toString()}');
-                            });
-                          });
-                        }
-                      },
-                      child: Text(
-                        'Login',
-                        style: GoogleFonts.poppins(
-                          textStyle: const TextStyle(
-                            letterSpacing: .5,
-                            fontSize: 14,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: width / 2.65,
+                                vertical: height / 50),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.0)),
+                            backgroundColor: Colors.black,
+                            foregroundColor: Colors.white,
                           ),
-                        ),
-                      )),
+                          onPressed: () {
+                            if (formKey.currentState!.validate()) {
+                              log('validation success');
+                              FirebaseAuth.instance
+                                  .signInWithEmailAndPassword(
+                                      email: emailController.text,
+                                      password: passwordController.text)
+                                  .then((value) {
+                                log('Login success');
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const HomePage(),
+                                    )).onError((error, stackTrace) {
+                                  alertSnackbar(
+                                      context, 'Error: ${error.toString()}');
+                                  log('Error: ${error.toString()}');
+                                });
+                              });
+                            }
+                          },
+                          child: Text(
+                            'Login',
+                            style: GoogleFonts.poppins(
+                              textStyle: const TextStyle(
+                                letterSpacing: .5,
+                                fontSize: 14,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          )),
+                    ],
+                  ),
                   khieght10,
                   Center(
                     child: Text(

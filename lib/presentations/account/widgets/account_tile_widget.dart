@@ -15,6 +15,9 @@ class AccountTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    var height = size.height;
+    var width = size.width;
     return GestureDetector(
       onTap: () {
         voidCallback();
@@ -24,8 +27,8 @@ class AccountTile extends StatelessWidget {
         child: Row(
           children: [
             Container(
-              height: 40,
-              width: 40,
+              height: height / 19,
+              width: width / 10,
               decoration: const BoxDecoration(
                 color: Color.fromARGB(40, 0, 0, 0),
                 borderRadius: BorderRadius.all(Radius.circular(5)),

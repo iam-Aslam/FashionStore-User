@@ -54,10 +54,44 @@ class AddressScreen extends StatelessWidget {
                             );
                           },
                         )
-                      : const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 250.0),
-                          child: Center(
-                            child: Text('Address Is Not Added'),
+                      : Center(
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => AddNewAddresScreen(
+                                      fromCheckOut: false,
+                                    ),
+                                  ));
+                            },
+                            child: Container(
+                              width: size.width * 0.9,
+                              height: size.height * 0.300,
+                              decoration: const BoxDecoration(
+                                border: Border(
+                                  top: BorderSide(
+                                    width: 1,
+                                    color: Colors.black,
+                                  ),
+                                  bottom:
+                                      BorderSide(color: Colors.black, width: 1),
+                                  right: BorderSide(
+                                    width: 1,
+                                    color: Colors.black,
+                                  ),
+                                  left:
+                                      BorderSide(color: Colors.white, width: 1),
+                                ),
+                              ),
+                              child: const Center(
+                                  child: Text(
+                                "Add Address",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
+                              )),
+                            ),
                           ),
                         );
                 } else if (snapshot.hasError) {

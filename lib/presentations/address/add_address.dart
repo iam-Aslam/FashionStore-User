@@ -40,7 +40,7 @@ class AddNewAddresScreen extends StatelessWidget {
                 const Appbar(goBack: true),
                 Row(
                   children: [
-                    MainHeading(
+                    const MainHeading(
                       text: 'Add Address',
                     ),
                     const Spacer(),

@@ -12,10 +12,10 @@ class Logo extends StatelessWidget {
     var width = size.width;
 
     return Padding(
-      padding: const EdgeInsets.only(left: 110.0, top: 70),
+      padding: EdgeInsets.only(left: width / 7, top: height / 25),
       child: SizedBox(
-        width: width / 3,
-        height: height / 10,
+        // width: width / 3,
+        //height: height / 10,
         child: Image.asset('assets/images/logo1.png'),
       ),
     );

@@ -85,46 +85,52 @@ class ResetScreen extends StatelessWidget {
                   ),
                 ),
                 khieght30,
-                ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: width / 3, vertical: 15.0),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0)),
-                      backgroundColor: Colors.black,
-                      foregroundColor: Colors.white,
-                    ),
-                    onPressed: () async {
-                      if (formKey.currentState!.validate()) {
-                        log('validation success');
-                        await FirebaseAuth.instance
-                            .sendPasswordResetEmail(email: emailController.text)
-                            .then((value) {
-                          log('Reset Success');
-                          alertSnackbar(context, 'Check Your Email');
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const LogIn(),
-                              )).onError((error, stackTrace) {
-                            alertSnackbar(
-                                context, 'Error: ${error.toString()}');
-                            log('Error: ${error.toString()}');
-                          });
-                        });
-                      }
-                    },
-                    child: Text(
-                      'Submit',
-                      style: GoogleFonts.poppins(
-                        textStyle: const TextStyle(
-                          letterSpacing: .5,
-                          fontSize: 14,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: width / 2.80, vertical: height / 50),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0)),
+                          backgroundColor: Colors.black,
+                          foregroundColor: Colors.white,
                         ),
-                      ),
-                    )),
+                        onPressed: () async {
+                          if (formKey.currentState!.validate()) {
+                            log('validation success');
+                            await FirebaseAuth.instance
+                                .sendPasswordResetEmail(
+                                    email: emailController.text)
+                                .then((value) {
+                              log('Reset Success');
+                              alertSnackbar(context, 'Check Your Email');
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const LogIn(),
+                                  )).onError((error, stackTrace) {
+                                alertSnackbar(
+                                    context, 'Error: ${error.toString()}');
+                                log('Error: ${error.toString()}');
+                              });
+                            });
+                          }
+                        },
+                        child: Text(
+                          'Submit',
+                          style: GoogleFonts.poppins(
+                            textStyle: const TextStyle(
+                              letterSpacing: .5,
+                              fontSize: 14,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        )),
+                  ],
+                ),
               ],
             ),
           ),

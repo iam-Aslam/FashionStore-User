@@ -9,9 +9,12 @@ import 'package:fashionstore/core/constants.dart';
 import 'package:fashionstore/presentations/address/add_address.dart';
 import 'package:fashionstore/widgets/appbar.dart';
 import 'package:fashionstore/widgets/main_heading_widget.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'widget/address_widget.dart';
+import 'widget/edit_address_button.dart';
 import 'widget/failure_widget.dart';
 import 'widget/price_text_widget.dart';
 
@@ -30,6 +33,7 @@ class CheckoutScreen extends StatefulWidget {
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
   int selectedPaymentIndex = 0;
+  bool isAddress = false;
   var razorpay = Razorpay();
   @override
   void initState() {
@@ -84,7 +88,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                   if (snapshot.hasData) {
                     final List<DocumentSnapshot> documents =
                         snapshot.data!.docs;
-
+                    isAddress = documents.isNotEmpty;
                     return documents.isNotEmpty
                         ? ListView.builder(
                             shrinkWrap: true,
@@ -103,12 +107,18 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                               );
                             },
                           )
-                        : const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 250.0),
-                            child: Center(
-                              child: Text('Address Is Not Added'),
-                            ),
-                          );
+                        : EditButton(
+                            name:
+                                'Click Here!  to Add Address Before Confirming Order',
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                PageTransition(
+                                  type: PageTransitionType.bottomToTop,
+                                  child: AddNewAddresScreen(),
+                                ),
+                              );
+                            });
                   } else if (snapshot.hasError) {
                     Text('Error: ${snapshot.error}');
                     log(snapshot.error.toString());
@@ -300,23 +310,34 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     foregroundColor: Colors.white,
                   ),
                   onPressed: () async {
-                    if (selectedPaymentIndex == 1) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const OrderLoadingScreen(),
-                          ));
+                    if (isAddress == true) {
+                      if (selectedPaymentIndex == 1) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const OrderLoadingScreen(),
+                            ));
+                      } else {
+                        final user = FirebaseAuth.instance.currentUser;
+                        Map<String, dynamic> options = {
+                          'key': 'rzp_test_UHMMVsaCTOCuSf',
+                          'amount': int.parse(widget.totalPrice) * 100,
+                          'name': 'Fashion Store',
+                          'timeout': 300,
+                          'description': 'Item',
+                          'prefill': {'contact': '', 'email': user!.email}
+                        };
+                        razorpay.open(options);
+                      }
                     } else {
-                      final user = FirebaseAuth.instance.currentUser;
-                      Map<String, dynamic> options = {
-                        'key': 'rzp_test_UHMMVsaCTOCuSf',
-                        'amount': int.parse(widget.totalPrice) * 100,
-                        'name': 'Fashion Store',
-                        'timeout': 300,
-                        'description': 'Item',
-                        'prefill': {'contact': '', 'email': user!.email}
-                      };
-                      razorpay.open(options);
+                      Fluttertoast.showToast(
+                        msg: 'Please add an Address',
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: Colors.black,
+                        textColor: Colors.white,
+                      );
                     }
                   },
                   child: Row(

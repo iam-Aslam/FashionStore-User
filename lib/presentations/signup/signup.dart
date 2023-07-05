@@ -22,16 +22,15 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    // ignore: unused_local_variable
     var height = size.height;
     var width = size.width;
     final formKey = GlobalKey<FormState>();
-    //bool isChecked = false;
+
     return SafeArea(
         child: Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(25.0),
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(25.0),
           child: Form(
             key: formKey,
             child: Column(
@@ -156,45 +155,50 @@ class _SignUpState extends State<SignUp> {
                   ),
                 ),
                 khieght20,
-                ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: width / 2.9, vertical: 15.0),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0)),
-                      backgroundColor: Colors.black,
-                      foregroundColor: Colors.white,
-                    ),
-                    onPressed: () {
-                      if (formKey.currentState!.validate()) {
-                        log('validation ssuccess');
-                        FirebaseAuth.instance
-                            .createUserWithEmailAndPassword(
-                                email: emailController.text,
-                                password: confirmpasswordController.text)
-                            .then((value) {
-                          log('sign up ssuccess');
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const HomePage(),
-                              ));
-                        }).onError((error, stackTrace) {
-                          log('Error ${error.toString()}');
-                        });
-                      }
-                    },
-                    child: Text(
-                      'Create',
-                      style: GoogleFonts.poppins(
-                        textStyle: const TextStyle(
-                          letterSpacing: .5,
-                          fontSize: 14,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: width / 2.80, vertical: height / 50),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0)),
+                          backgroundColor: Colors.black,
+                          foregroundColor: Colors.white,
                         ),
-                      ),
-                    )),
+                        onPressed: () {
+                          if (formKey.currentState!.validate()) {
+                            log('validation ssuccess');
+                            FirebaseAuth.instance
+                                .createUserWithEmailAndPassword(
+                                    email: emailController.text,
+                                    password: confirmpasswordController.text)
+                                .then((value) {
+                              log('sign up ssuccess');
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const HomePage(),
+                                  ));
+                            }).onError((error, stackTrace) {
+                              log('Error ${error.toString()}');
+                            });
+                          }
+                        },
+                        child: Text(
+                          'Create',
+                          style: GoogleFonts.poppins(
+                            textStyle: const TextStyle(
+                              letterSpacing: .5,
+                              fontSize: 14,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        )),
+                  ],
+                ),
               ],
             ),
           ),

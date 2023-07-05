@@ -226,7 +226,7 @@ class _ScreenCartState extends State<ScreenCart> {
                         ),
                       ),
                     ),
-                    kwidth100,
+                    const Spacer(),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(5),
                       child: Container(
