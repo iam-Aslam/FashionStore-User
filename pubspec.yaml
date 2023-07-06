@@ -57,11 +57,15 @@ dependencies:
   provider: ^6.0.5
   carousel_slider: ^4.2.1
   connectivity_plus: ^4.0.1
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/logo1.png"
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
