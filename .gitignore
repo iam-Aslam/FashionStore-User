@@ -42,3 +42,9 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+
+# Remember to never publicly share your keystore
+key.properties
+**/*.keystore
+**/*.jks

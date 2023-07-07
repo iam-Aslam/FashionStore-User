@@ -1,4 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
 import 'package:fashionstore/presentations/onboarding_screens/onboard_screen.dart';
 import 'package:flutter/material.dart';
 

@@ -4,6 +4,7 @@ import 'package:fashionstore/presentations/login/reset_password/reset_screen.dar
 import 'package:fashionstore/presentations/signup/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../../widgets/logo.dart';
@@ -178,8 +179,16 @@ class _LogInState extends State<LogIn> {
                                     MaterialPageRoute(
                                       builder: (context) => const HomePage(),
                                     )).onError((error, stackTrace) {
-                                  alertSnackbar(
-                                      context, 'Error: ${error.toString()}');
+                                  // alertSnackbar(
+                                  //     context, 'Error: ${error.toString()}');
+                                  Fluttertoast.showToast(
+                                    msg: '${error.toString()}',
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: Colors.black,
+                                    textColor: Colors.white,
+                                  );
                                   log('Error: ${error.toString()}');
                                 });
                               });
