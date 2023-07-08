@@ -7,14 +7,14 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:577849565216:android:01b6df633bd48cca151c45",
+        "mobilesdk_app_id": "1:577849565216:android:720b8ffcaa2d416a151c45",
         "android_client_info": {
-          "package_name": "com.example.fashionstore"
+          "package_name": "com.example.admin"
         }
       },
       "oauth_client": [
         {
-          "client_id": "577849565216-k7psmhpbm49sf8cbhjaf0n6808riok2i.apps.googleusercontent.com",
+          "client_id": "577849565216-32kn068emr04m4ursavjl4hjqkotfn0u.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -27,7 +27,81 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "577849565216-k7psmhpbm49sf8cbhjaf0n6808riok2i.apps.googleusercontent.com",
+              "client_id": "577849565216-32kn068emr04m4ursavjl4hjqkotfn0u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:577849565216:android:01b6df633bd48cca151c45",
+        "android_client_info": {
+          "package_name": "com.example.fashionstore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "577849565216-n1o8aref3bi1er6pmm7fr7n563mc45g0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fashionstore",
+            "certificate_hash": "f27b08e03147e2df1c05bc6529e55e147687f8c6"
+          }
+        },
+        {
+          "client_id": "577849565216-32kn068emr04m4ursavjl4hjqkotfn0u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpg0jgOlXydqfE28wzw8cBVmFzbLsR8SI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "577849565216-32kn068emr04m4ursavjl4hjqkotfn0u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:577849565216:android:ebfdb33b5e6c050a151c45",
+        "android_client_info": {
+          "package_name": "in.brototype.fashionstore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "577849565216-piqghvml8rnnga2nt30nlo1tofr409ja.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.brototype.fashionstore",
+            "certificate_hash": "f27b08e03147e2df1c05bc6529e55e147687f8c6"
+          }
+        },
+        {
+          "client_id": "577849565216-32kn068emr04m4ursavjl4hjqkotfn0u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpg0jgOlXydqfE28wzw8cBVmFzbLsR8SI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "577849565216-32kn068emr04m4ursavjl4hjqkotfn0u.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
