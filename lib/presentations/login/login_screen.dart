@@ -179,8 +179,6 @@ class _LogInState extends State<LogIn> {
                                     MaterialPageRoute(
                                       builder: (context) => const HomePage(),
                                     )).onError((error, stackTrace) {
-                                  // alertSnackbar(
-                                  //     context, 'Error: ${error.toString()}');
                                   Fluttertoast.showToast(
                                     msg: '${error.toString()}',
                                     toastLength: Toast.LENGTH_SHORT,
@@ -189,7 +187,6 @@ class _LogInState extends State<LogIn> {
                                     backgroundColor: Colors.black,
                                     textColor: Colors.white,
                                   );
-                                  log('Error: ${error.toString()}');
                                 });
                               });
                             }
