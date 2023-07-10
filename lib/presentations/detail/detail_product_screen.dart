@@ -69,7 +69,6 @@ String getColorName(String color) {
 
 class _ProductDetailScreenState extends State<ProductDetailScreen> {
   bool isAddedToWishlist = false;
-//checking funciton
   Future<void> checkIfProductInWishlist() async {
     String email = FirebaseAuth.instance.currentUser!.email!;
     bool exists = await checkIfProductExistsInWishlist(email, widget.id);
@@ -273,7 +272,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                     .map(
                                       (color) => Container(
                                         decoration: BoxDecoration(
-                                          // color: Colors.white,
                                           border: Border.all(
                                             color: _selectedsize == color
                                                 ? Colors.black

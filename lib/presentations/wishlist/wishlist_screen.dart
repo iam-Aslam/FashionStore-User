@@ -16,7 +16,6 @@ class ScreenWishlist extends StatelessWidget {
     String email = FirebaseAuth.instance.currentUser!.email!;
     var size = MediaQuery.of(context).size;
     var height = size.height;
-    //var width = size.width;
     return SafeArea(
         child: Scaffold(
       body: Padding(

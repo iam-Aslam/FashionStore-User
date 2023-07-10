@@ -74,12 +74,10 @@ class TextFieldWidget extends StatelessWidget {
                             labelStyle: const TextStyle(
                               color: Colors.transparent,
                             ),
-
                             errorStyle: const TextStyle(
                               color: Colors.red,
                               fontWeight: FontWeight.bold,
                             ),
-                            // contentPadding: EdgeInsets.only(bottom: 8.0),
                           ),
                         ),
                       )

@@ -87,13 +87,10 @@ orderCancelConfirm(
 
 Future<void> deleteOrder(String orderId) async {
   try {
-    // Get a reference to the Firestore collection
     CollectionReference ordersCollection =
         FirebaseFirestore.instance.collection('orders');
 
-    // Delete the document with the provided orderId
     await ordersCollection.doc(orderId).delete();
-    // Show a toast message
     Fluttertoast.showToast(
       msg: 'Order Cancelled successfully',
       toastLength: Toast.LENGTH_SHORT,

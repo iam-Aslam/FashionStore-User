@@ -1,11 +1,10 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:fashionstore/model/functions.dart';
 import 'package:fashionstore/model/wishlist_model.dart';
 
+// ignore: must_be_immutable
 class AddWishlistWidget extends StatefulWidget {
   bool isAddedToWishlist;
   final String id;

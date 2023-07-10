@@ -9,20 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 class OrderLoadingScreen extends StatefulWidget {
   const OrderLoadingScreen({
     super.key,
-    // required this.addressList,
-    // required this.totalPrice,
-    // required this.paymentMethod,
-    // required this.cartList,
-    // required this.productList,
-    // required this.cartProductIdList,
   });
-
-  // final Map addressList;
-  // final num totalPrice;
-  // final String paymentMethod;
-  // final List cartList;
-  // final List productList;
-  // final List cartProductIdList;
 
   @override
   State<OrderLoadingScreen> createState() => _OrderLoadingScreenState();
@@ -34,20 +21,6 @@ class _OrderLoadingScreenState extends State<OrderLoadingScreen> {
   @override
   void initState() {
     placeOrderAndDeleteCartItems(email!);
-    // deleteAllCart(
-    //   widget.cartProductIdList,
-    //   widget.cartList,
-    // );
-    // addNewOrder(
-    //     Orders(
-    //       addressMap: widget.addressList,
-    //       totalPrice: widget.totalPrice,
-    //       paymentMethod: widget.paymentMethod,
-    //       cartList: widget.cartList,
-    //       productList: widget.productList,
-    //       orderStatusIndex: 0,
-    //     ),
-    //     context);
     delayChecked();
     super.initState();
   }
@@ -113,7 +86,6 @@ navigateToHome(BuildContext context) {
             MaterialPageRoute(
               builder: (BuildContext context) => const HomePage(),
             ),
-            (Route<dynamic> route) =>
-                false, // Condition to remove all previous screens
+            (Route<dynamic> route) => false,
           ));
 }

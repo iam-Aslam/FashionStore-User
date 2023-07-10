@@ -50,7 +50,6 @@ class _ProductTileState extends State<ProductTile> {
   @override
   Widget build(BuildContext context) {
     String email = FirebaseAuth.instance.currentUser!.email!;
-    // Future<bool> documentExists = checkIfDocumentExists(id);
     return GestureDetector(
       onTap: () {
         Navigator.push(

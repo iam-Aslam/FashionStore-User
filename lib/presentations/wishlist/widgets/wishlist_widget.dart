@@ -1,12 +1,9 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fashionstore/model/functions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../../core/constants.dart';
 
 class WishlistProductWidget extends StatefulWidget {
@@ -53,9 +50,6 @@ class _WishlistProductWidgetState extends State<WishlistProductWidget> {
 
   @override
   Widget build(BuildContext context) {
-    //  var size = MediaQuery.of(context).size;
-    // var height = size.height;
-    // var width = size.width;
     return Material(
       elevation: 12,
       borderRadius: const BorderRadius.all(Radius.circular(20)),
@@ -140,12 +134,6 @@ class _WishlistProductWidgetState extends State<WishlistProductWidget> {
                         CupertinoIcons.heart_slash_fill,
                         color: Colors.black,
                       )),
-                  // IconButton(
-                  //     onPressed: () {},
-                  //     icon: const Icon(
-                  //       CupertinoIcons.cart_fill_badge_plus,
-                  //       color: Colors.black,
-                  //     ))
                 ],
               ),
             )

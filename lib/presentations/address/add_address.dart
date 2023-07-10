@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fashionstore/core/constants.dart';
 import 'package:fashionstore/widgets/appbar.dart';
@@ -45,15 +44,7 @@ class AddNewAddresScreen extends StatelessWidget {
                     ),
                     const Spacer(),
                     GestureDetector(
-                        onTap: () {
-                          // Address a;
-                          // PageTransition(
-                          //   type: PageTransitionType.bottomToTop,
-                          //   child: EditAdressScreen(
-                          //     data: a,
-                          //   ),
-                          // );
-                        },
+                        onTap: () {},
                         child: const Icon(
                           CupertinoIcons.pencil,
                           size: 30,

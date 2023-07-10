@@ -27,8 +27,6 @@ class WidgetHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-
-    /*24 is for notification bar on Android*/
     final double itemHeight = (size.height - kToolbarHeight - 24) / 2.5;
     final double itemWidth = size.width / 2;
     return SafeArea(
@@ -203,8 +201,6 @@ class WidgetHome extends StatelessWidget {
                         image: documents[index].get('image'),
                         id: documents[index].get('id'),
                         description: documents[index].get('description'),
-
-                        //index: index,
                       );
                     },
                   );

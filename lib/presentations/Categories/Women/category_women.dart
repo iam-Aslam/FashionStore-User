@@ -38,7 +38,6 @@ class CategoryWomen extends StatelessWidget {
                       Navigator.pop(context);
                     },
                     child: const CircleAvatar(
-                        //  backgroundColor: Colors.black,
                         radius: 18,
                         backgroundImage: AssetImage('assets/images/prev.jpg')),
                   ),
