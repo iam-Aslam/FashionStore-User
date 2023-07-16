@@ -19,12 +19,13 @@ TextEditingController passwordController = TextEditingController();
 TextEditingController confirmpasswordController = TextEditingController();
 
 class _SignUpState extends State<SignUp> {
+  final formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var height = size.height;
     var width = size.width;
-    final formKey = GlobalKey<FormState>();
 
     return SafeArea(
         child: Scaffold(

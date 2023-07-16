@@ -81,12 +81,12 @@ class AddressScreen extends StatelessWidget {
                                     color: Colors.black,
                                   ),
                                   left:
-                                      BorderSide(color: Colors.white, width: 1),
+                                      BorderSide(color: Colors.black, width: 1),
                                 ),
                               ),
                               child: const Center(
                                   child: Text(
-                                "Add Address",
+                                "Click Here to Add New Address",
                                 style: TextStyle(
                                   fontSize: 18,
                                 ),

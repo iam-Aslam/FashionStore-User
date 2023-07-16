@@ -179,6 +179,7 @@ class _LogInState extends State<LogIn> {
                                     MaterialPageRoute(
                                       builder: (context) => const HomePage(),
                                     )).onError((error, stackTrace) {
+                                  log(error.toString());
                                   Fluttertoast.showToast(
                                     msg: '${error.toString()}',
                                     toastLength: Toast.LENGTH_SHORT,
@@ -188,6 +189,15 @@ class _LogInState extends State<LogIn> {
                                     textColor: Colors.white,
                                   );
                                 });
+                              }).catchError((error) {
+                                Fluttertoast.showToast(
+                                  msg: 'No such user exists',
+                                  toastLength: Toast.LENGTH_SHORT,
+                                  gravity: ToastGravity.BOTTOM,
+                                  timeInSecForIosWeb: 1,
+                                  backgroundColor: Colors.black,
+                                  textColor: Colors.white,
+                                );
                               });
                             }
                           },
