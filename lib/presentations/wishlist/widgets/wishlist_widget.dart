@@ -50,12 +50,13 @@ class _WishlistProductWidgetState extends State<WishlistProductWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Material(
       elevation: 12,
       borderRadius: const BorderRadius.all(Radius.circular(20)),
       child: Container(
         height: 100,
-        width: 360,
+        width: size.width / 1,
         decoration: const BoxDecoration(
           //color: Colors.amber,
           borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -64,7 +65,7 @@ class _WishlistProductWidgetState extends State<WishlistProductWidget> {
           children: [
             kwidth10,
             Container(
-              width: 90,
+              width: 70,
               height: 70,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
@@ -120,22 +121,18 @@ class _WishlistProductWidgetState extends State<WishlistProductWidget> {
                 ),
               ],
             ),
-            const Spacer(),
-            Padding(
-              padding: const EdgeInsets.only(right: 10.0, bottom: 1, top: 2),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  IconButton(
-                      onPressed: () {
-                        deleteWishlist(widget.id, context);
-                      },
-                      icon: const Icon(
-                        CupertinoIcons.heart_slash_fill,
-                        color: Colors.black,
-                      )),
-                ],
-              ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                IconButton(
+                    onPressed: () {
+                      deleteWishlist(widget.id, context);
+                    },
+                    icon: const Icon(
+                      CupertinoIcons.heart_slash_fill,
+                      color: Colors.black,
+                    )),
+              ],
             )
           ],
         ),

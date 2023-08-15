@@ -70,35 +70,32 @@ class WidgetHome extends StatelessWidget {
                   return Container(
                     color: Colors.white,
                     height: 100,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 4.0),
-                      child: CarouselSlider(
-                        options: CarouselOptions(
-                          height: 100,
-                          enableInfiniteScroll: true,
-                          scrollDirection: Axis.horizontal,
-                          autoPlay: true,
-                          autoPlayCurve: Curves.fastOutSlowIn,
-                          autoPlayAnimationDuration:
-                              const Duration(milliseconds: 800),
-                          viewportFraction: 0.95,
-                          enlargeCenterPage: true,
-                        ),
-                        items: List.generate(data.length, (index) {
-                          return Builder(
-                            builder: (BuildContext context) {
-                              return ExclusiveProductWidget(
-                                id: data[index].get('id'),
-                                name: data[index].get('name'),
-                                subname: data[index].get('subname'),
-                                rate: data[index].get('price'),
-                                image: data[index].get('image'),
-                                description: data[index].get('description'),
-                              );
-                            },
-                          );
-                        }),
+                    child: CarouselSlider(
+                      options: CarouselOptions(
+                        height: 100,
+                        enableInfiniteScroll: true,
+                        scrollDirection: Axis.horizontal,
+                        autoPlay: true,
+                        autoPlayCurve: Curves.fastOutSlowIn,
+                        autoPlayAnimationDuration:
+                            const Duration(milliseconds: 800),
+                        viewportFraction: 0.95,
+                        enlargeCenterPage: true,
                       ),
+                      items: List.generate(data.length, (index) {
+                        return Builder(
+                          builder: (BuildContext context) {
+                            return ExclusiveProductWidget(
+                              id: data[index].get('id'),
+                              name: data[index].get('name'),
+                              subname: data[index].get('subname'),
+                              rate: data[index].get('price'),
+                              image: data[index].get('image'),
+                              description: data[index].get('description'),
+                            );
+                          },
+                        );
+                      }),
                     ),
                   );
                 } else if (snapshot.hasError) {

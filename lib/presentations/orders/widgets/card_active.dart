@@ -51,7 +51,7 @@ class _CardActiveState extends State<CardActive> {
       borderRadius: const BorderRadius.all(Radius.circular(20)),
       child: Container(
         height: 100,
-        width: 360,
+        //width: size.width / 2,
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(20)),
         ),
@@ -59,7 +59,7 @@ class _CardActiveState extends State<CardActive> {
           children: [
             kwidth10,
             Container(
-              width: 90,
+              width: 70,
               height: 70,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
@@ -119,7 +119,7 @@ class _CardActiveState extends State<CardActive> {
             Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(right: 7.0, top: 16),
+                  padding: const EdgeInsets.only(right: 0, top: 16),
                   child: Container(
                     decoration: BoxDecoration(
                       color: Colors.red,

@@ -115,7 +115,7 @@ class ScreenAccount extends StatelessWidget {
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.symmetric(
-                      horizontal: size.width / 3, vertical: size.height / 50),
+                      horizontal: size.width / 3.5, vertical: size.height / 50),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0)),
                   backgroundColor: Colors.black,

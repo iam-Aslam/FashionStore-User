@@ -155,7 +155,7 @@ class _CartWidgetState extends State<CartWidget> {
                         ],
                       ),
                       SizedBox(
-                        width: width / 4,
+                        width: width / 5,
                       ),
                       Container(
                           height: 30,

@@ -43,7 +43,7 @@ class ExclusiveProductWidget extends StatelessWidget {
         borderRadius: const BorderRadius.all(Radius.circular(20)),
         child: Container(
           height: 100,
-          width: 360,
+          width: MediaQuery.of(context).size.width / .9,
           decoration: BoxDecoration(
             border: Border.all(width: 0.8, color: Colors.grey),
             borderRadius: const BorderRadius.all(Radius.circular(20)),
@@ -106,7 +106,7 @@ class ExclusiveProductWidget extends StatelessWidget {
               ),
               const Spacer(),
               Container(
-                width: 70,
+                width: 50,
                 height: 50,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
