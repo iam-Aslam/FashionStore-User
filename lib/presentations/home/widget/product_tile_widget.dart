@@ -49,6 +49,7 @@ class _ProductTileState extends State<ProductTile> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     String email = FirebaseAuth.instance.currentUser!.email!;
     return GestureDetector(
       onTap: () {
@@ -79,7 +80,7 @@ class _ProductTileState extends State<ProductTile> {
             child: Stack(
               children: [
                 Positioned(
-                    left: 127,
+                    left: size.width / 3.2,
                     top: -4,
                     child: IconButton(
                       icon: Icon(

@@ -91,7 +91,7 @@ class _ScreenCartState extends State<ScreenCart> {
             ),
             khieght20,
             SizedBox(
-              height: height / 1.68,
+              height: height / 1.70,
               child: StreamBuilder<QuerySnapshot>(
                 stream: FirebaseFirestore.instance
                     .collection('cart')
@@ -182,7 +182,6 @@ class _ScreenCartState extends State<ScreenCart> {
                 ],
               ),
             ),
-            khieght10,
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.symmetric(

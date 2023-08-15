@@ -30,7 +30,7 @@ class ScreenWishlist extends StatelessWidget {
             ),
             khieght10,
             SizedBox(
-              height: height / 1.38,
+              height: height / 1.42,
               child: StreamBuilder<QuerySnapshot>(
                 stream: FirebaseFirestore.instance
                     .collection('wishlist')
