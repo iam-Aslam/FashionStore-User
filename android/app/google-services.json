@@ -73,6 +73,43 @@
     },
     {
       "client_info": {
+        "mobilesdk_app_id": "1:577849565216:android:9eea8a3af690c14f151c45",
+        "android_client_info": {
+          "package_name": "in.aslam.fashionstore"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "577849565216-oc7lcq6sm87n7jv7f8s9pvdholkp4chk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.aslam.fashionstore",
+            "certificate_hash": "f27b08e03147e2df1c05bc6529e55e147687f8c6"
+          }
+        },
+        {
+          "client_id": "577849565216-32kn068emr04m4ursavjl4hjqkotfn0u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpg0jgOlXydqfE28wzw8cBVmFzbLsR8SI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "577849565216-32kn068emr04m4ursavjl4hjqkotfn0u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:577849565216:android:ebfdb33b5e6c050a151c45",
         "android_client_info": {
           "package_name": "in.brototype.fashionstore"
