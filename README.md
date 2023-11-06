@@ -1,6 +1,6 @@
 # Fashion Store
 
-A new Flutter project.
+E-Commerce Application built in flutter 
 
 ## Getting Started
 
