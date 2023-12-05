@@ -1,11 +1,13 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fashionstore/presentations/cart/widgets/count_widget.dart';
+import 'package:fashionstore/provider/cart_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:fashionstore/core/constants.dart';
 import 'package:fashionstore/model/functions.dart';
+import 'package:provider/provider.dart';
 
 class CartWidget extends StatefulWidget {
   final String id;
@@ -62,6 +64,7 @@ class _CartWidgetState extends State<CartWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final cartProvider = Provider.of<CartProvider>(context);
     var size = MediaQuery.of(context).size;
     //var height = size.height;
     var width = size.width;
@@ -75,7 +78,7 @@ class _CartWidgetState extends State<CartWidget> {
                   topRight: Radius.circular(20),
                   bottomRight: Radius.circular(20)),
               onPressed: (context) {
-                deleteCart(widget.id, widget.scaffoldContext!);
+                cartProvider.deleteCart(widget.id, widget.scaffoldContext!);
               },
               backgroundColor: Colors.black,
               foregroundColor: Colors.white,
