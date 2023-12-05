@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 // constant hieght
-const khieght5 = SizedBox(height: 5);
+const khieght5 = SizedBox(height: 4.5);
 const khieght10 = SizedBox(height: 10);
 const khieght20 = SizedBox(height: 20);
 const khieght30 = SizedBox(height: 30);

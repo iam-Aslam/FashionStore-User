@@ -1,6 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fashionstore/provider/product_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../core/constants.dart';
 import '../../../widgets/main_heading_widget.dart';
 import '../../home/widget/shimmer_widget.dart';
@@ -8,18 +9,11 @@ import '../../home/widget/product_tile_widget.dart';
 
 class CategoryWomen extends StatelessWidget {
   const CategoryWomen({super.key});
-  Stream getCategoryProducts() async* {
-    final QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-        .collection('products')
-        .where('category', isEqualTo: 'Women')
-        .get();
-
-    final List<DocumentSnapshot> docs = querySnapshot.docs.toList();
-    yield docs;
-  }
 
   @override
   Widget build(BuildContext context) {
+    final productProvider =
+        Provider.of<ProductProvider>(context, listen: false);
     var size = MediaQuery.of(context).size;
     /*24 is for notification bar on Android*/
     final double itemHeight = (size.height - kToolbarHeight - 24) / 2.5;
@@ -58,7 +52,7 @@ class CategoryWomen extends StatelessWidget {
               ),
               khieght10,
               StreamBuilder(
-                stream: getCategoryProducts(),
+                stream: productProvider.getCategoryProducts('Women'),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     final data = snapshot.data;
