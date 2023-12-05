@@ -1,10 +1,12 @@
 import 'dart:developer';
 import 'package:fashionstore/model/functions.dart';
+import 'package:fashionstore/provider/cart_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 import '../../core/constants.dart';
 import '../../model/cart_model.dart';
 import '../checkout/checkout.dart';
@@ -85,6 +87,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final cartProvider = Provider.of<CartProvider>(context, listen: false);
     var size = MediaQuery.of(context).size;
     var height = size.height;
     var width = size.width;
@@ -369,7 +372,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               foregroundColor: Colors.white,
                             ),
                             onPressed: () {
-                              addToCart(
+                              cartProvider.addToCart(
                                   Cart(
                                     productId: widget.id,
                                     price: widget.rate,

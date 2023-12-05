@@ -93,10 +93,7 @@ class _ScreenCartState extends State<ScreenCart> {
             SizedBox(
               height: height / 1.70,
               child: StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance
-                    .collection('cart')
-                    .where('email', isEqualTo: email)
-                    .snapshots(),
+                stream: cartProvider.getCartStream(email),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     final List<DocumentSnapshot> documents =

@@ -55,11 +55,11 @@ class AddressWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AddressField(id: 'Name', value: name),
-              khieght10,
+              khieght5,
               AddressField(id: 'Address', value: address),
-              khieght10,
+              khieght5,
               AddressField(id: 'Pincode', value: pincode),
-              khieght10,
+              khieght5,
               AddressField(id: 'City', value: city),
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -67,12 +67,12 @@ class AddressWidget extends StatelessWidget {
                 children: [
                   Column(
                     children: [
-                      khieght10,
+                      khieght5,
                       Padding(
                         padding: const EdgeInsets.only(right: 54.0),
                         child: AddressField(id: 'State', value: state),
                       ),
-                      khieght10,
+                      khieght5,
                       AddressField(id: 'Phone', value: phone),
                     ],
                   ),
