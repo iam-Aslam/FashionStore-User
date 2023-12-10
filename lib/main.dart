@@ -1,6 +1,7 @@
 import 'package:fashionstore/presentations/splash_screen/splash_screen.dart';
 import 'package:fashionstore/provider/cart_provider.dart';
 import 'package:fashionstore/provider/product_provider.dart';
+import 'package:fashionstore/provider/wishlist_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => ProductProvider()),
         ChangeNotifierProvider(create: (context) => CartProvider()),
+        ChangeNotifierProvider(create: (context) => WishlistProvider()),
       ],
       child: MaterialApp(
         title: 'Fashion Store',
